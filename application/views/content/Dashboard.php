@@ -2,82 +2,22 @@
 <div class="container row">
     <div class="col m3">
         <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="<?= base_url('assets/') ?>images/office.jpg" alt="office">
-            </div>
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="#!" class="-text">one<span class="badge">1</span></a>
-                    </li>
-                    <li><a href="#!" class="-text">two<span class="new badge ">2</span></a>
-                    </li>
-                    <li><a href="#!" class="-text">three</a>
-                    </li>
-                </ul>
-
-
-            </div>
-        </div>
-    </div>
-    <div class="col m3">
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="<?= base_url('assets/') ?>images/office.jpg" alt="office">
-            </div>
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="#!" class="-text">one<span class="badge">1</span></a>
-                    </li>
-                    <li><a href="#!" class="-text">two<span class="new badge ">2</span></a>
-                    </li>
-                    <li><a href="#!" class="-text">three</a>
-                    </li>
-                </ul>
-
-
-            </div>
-        </div>
-    </div>
-    <div class="col m3">
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="<?= base_url('assets/') ?>images/office.jpg" alt="office">
-            </div>
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="#!" class="-text">one<span class="badge">1</span></a>
-                    </li>
-                    <li><a href="#!" class="-text">two<span class="new badge ">2</span></a>
-                    </li>
-                    <li><a href="#!" class="-text">three</a>
-                    </li>
-                </ul>
-
-
-            </div>
-        </div>
-    </div>
-    <div class="col m3">
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="<?= base_url('assets/') ?>images/office.jpg" alt="office">
-            </div>
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="#!" class="-text">one<span class="badge">1</span></a>
-                    </li>
-                    <li><a href="#!" class="-text">two<span class="new badge ">2</span></a>
-                    </li>
-                    <li><a href="#!" class="-text">three</a>
-                    </li>
-                </ul>
-
-
-            </div>
+            <a href="<?= base_url('statistik') ?>">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="<?= base_url('assets/') ?>images/office.jpg" alt="office">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                    <ul id="dropdown1" class="dropdown-content">
+                        <li><a href="#!" class="-text">one<span class="badge">1</span></a>
+                        </li>
+                        <li><a href="#!" class="-text">two<span class="new badge ">2</span></a>
+                        </li>
+                        <li><a href="#!" class="-text">three</a>
+                        </li>
+                    </ul>
+                </div>
+            </a>
         </div>
     </div>
 

@@ -25,8 +25,8 @@
                 <div>
                     <span class="chart-title white-text">Pendaftar Kegiatan</span>
                     <div class="chart-revenue cyan darken-2 white-text">
-                        <p class="chart-revenue-total">$4,500.85</p>
-                        <p class="chart-revenue-per"><i class="mdi-navigation-arrow-drop-up"></i> 21.80 %</p>
+                        <!-- <p class="chart-revenue-total">$4,500.85</p>
+                        <p class="chart-revenue-per"><i class="mdi-navigation-arrow-drop-up"></i> 21.80 %</p> -->
                     </div>
                 </div>
                 <div class="trending-line-chart-wrapper">
@@ -44,40 +44,11 @@
                 <thead>
                     <tr>
                         <th data-field="id">ID</th>
-                        <th data-field="month">Month</th>
-                        <th data-field="item-sold">Item Sold</th>
-                        <th data-field="item-price">Item Price</th>
-                        <th data-field="total-profit">Total Profit</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>January</td>
-                        <td>122</td>
-                        <td>100</td>
-                        <td>$122,00.00</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>February</td>
-                        <td>122</td>
-                        <td>100</td>
-                        <td>$122,00.00</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>March</td>
-                        <td>122</td>
-                        <td>100</td>
-                        <td>$122,00.00</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>April</td>
-                        <td>122</td>
-                        <td>100</td>
-                        <td>$122,00.00</td>
                     </tr>
                 </tbody>
             </table>
@@ -86,3 +57,34 @@
 
     </div>
 </div>
+
+
+<script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/chartjs/chart.min.js"></script>
+<script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/chartjs/chart-script.js"></script>
+<script>
+    var trendingLineChart;
+    var data = {
+        labels: ["22 Agustus", "23 Agustus", "24 Agustus", "25 Agustus", "26 Agustus", "27 Agustus", "28 Agustus"],
+        datasets: [{
+                label: "First dataset",
+                fillColor: "rgba(128, 222, 234, 0.6)",
+                strokeColor: "#ffffff",
+                pointColor: "#00bcd4",
+                pointStrokeColor: "#ffffff",
+                pointHighlightFill: "#ffffff",
+                pointHighlightStroke: "#ffffff",
+                data: [100, 50, 20, 40, 80, 50, 80]
+            },
+            {
+                label: "Second dataset",
+                fillColor: "rgba(128, 222, 234, 0.3)",
+                strokeColor: "#80deea",
+                pointColor: "#00bcd4",
+                pointStrokeColor: "#80deea",
+                pointHighlightFill: "#80deea",
+                pointHighlightStroke: "#80deea",
+                data: [60, 20, 90, 80, 50, 85, 40]
+            }
+        ]
+    };
+</script>

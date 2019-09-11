@@ -1,4 +1,4 @@
-<div class="col m8 s12">
+<div class="col offset-m1 m10 s12">
     <div id="full-calendar">
         <div class="row">
             <div class="col s12 m4 l3">
@@ -23,3 +23,9 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/fullcalendar/lib/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/fullcalendar/lib/moment.min.js"></script>
+<script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/fullcalendar/js/fullcalendar.min.js"></script>
+<script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/fullcalendar/fullcalendar-script.js"></script>

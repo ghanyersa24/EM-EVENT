@@ -21,9 +21,10 @@
     <link href="<?= base_url('assets/css/') ?>custom/custom-style.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="<?= base_url('assets/js/') ?>plugins/prism/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="<?= base_url('assets/js/') ?>plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="<?= base_url('assets/js/') ?>plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">  <link href="js/plugins/fullcalendar/css/fullcalendar.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="<?= base_url('assets/js/') ?>plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="<?= base_url('assets/js/') ?>plugins/fullcalendar/css/fullcalendar.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/jquery-1.11.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 </head>
 
 <body>
@@ -75,7 +76,7 @@
                                 </li>
 
                                 <div class="divider"></div>
-                                <li><a href="<?=base_url('plotting/dropout')?>"><i class="mdi-hardware-keyboard-tab"></i> Drop Out</a>
+                                <li><a href="<?= base_url('plotting/dropout') ?>"><i class="mdi-hardware-keyboard-tab"></i> Drop Out</a>
                                 </li>
                             </ul>
                         </div>
@@ -85,17 +86,15 @@
                     </div>
 
                     <div id="timeline" class="col s12">
-                        <dl>
-                            <dt>Definition list</dt>
-                            <dd>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</dd>
-                            <dt>Lorem ipsum dolor sit amet</dt>
-                            <dd>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</dd>
-                        </dl>
+                        <?php
+                        include('content/event/Timeline.php');
+                        ?>
                     </div>
 
                     <div id="pengurus" class="col s12">
-                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies
-                            mi vitae est. Mauris placerat eleifend leo.</p>
+                        <?php
+                        include('content/event/Pengurus.php');
+                        ?>
                     </div>
                 </div>
                 <!--end container-->
@@ -115,8 +114,6 @@
     <script type="text/javascript" src="<?= base_url('assets/js/') ?>materialize.js"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/prism/prism.js"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/chartjs/chart.min.js"></script>
-    <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/chartjs/chart-script.js"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins.js"></script>
 </body>
 

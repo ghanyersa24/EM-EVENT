@@ -12,7 +12,10 @@ $(function() {
     var window_width = $(window).width();
 
     /*Preloader*/
-    $(window).load(function() {
+    // $(window).load(function() {
+
+    // });
+    $(window).on('load', function() {
         setTimeout(function() {
             $('body').addClass('loaded');
         }, 200);

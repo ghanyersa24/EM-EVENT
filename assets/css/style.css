@@ -28,6 +28,10 @@
     margin-bottom: 5vh;
 }
 
+.pt {
+    padding-top: 3vh;
+}
+
 body {
     background-color: #f9f9f9;
 }

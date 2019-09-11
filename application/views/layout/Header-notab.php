@@ -11,14 +11,7 @@
                     </li>
                 </ul>
                 <div class="header-search-wrapper hide-on-med-and-down">
-                    <ul class="tabs tab-demo-active cyan">
-                        <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#beranda">Beranda</a>
-                        </li>
-                        <li class="tab col s3"><a class="white-text waves-effect waves-light " href="#timeline">Timeline</a>
-                        </li>
-                        <li class="tab col s3"><a class="white-text waves-effect waves-light " href="#pengurus">Pengurus</a>
-                        </li>
-                    </ul>
+                   
                 </div>
                 <ul class="nav-right hide-on-med-and-down">
                     <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen"><i class="mdi-action-settings-overscan"></i></a>
