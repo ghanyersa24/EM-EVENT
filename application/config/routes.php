@@ -49,6 +49,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+//ADD
+$route['biodataDiri'] = 'Biodata/addBiodataDiri';
+$route['swot'] = 'Biodata/addSWOT';
+$route['pendidikan'] = 'Biodata/addBiodataPendidikan';
+$route['organisasi'] = 'Biodata/addBiodataOrganisasi';
+$route['kepanitiaan'] = 'Biodata/addBiodataKepanitiaan';
+$route['prestasi'] = 'Biodata/addBiodataPrestasi';
+$route['daftar'] = 'biodata/addDataDaftar';
+//END ADD
+
+// --------------------GET---------------------------
+$route['getAllAgend'] = 'biodata/getAgendaAll';
+$route['getDaf/(:any)/(:any)'] = 'biodata/getDaftar/$1/$2';
+$route['getBio/(:any)/(:any)'] = 'biodata/getDataBiodata/$1/$2';
+// --------------------GET---------------------------
+
+// --------------------ADMIN---------------------------
+$route['statistik/(:any)'] = 'statistik/index/$1';
+// --------------------ADMIN---------------------------
+
 $route['default_controller'] = 'Dashboard';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

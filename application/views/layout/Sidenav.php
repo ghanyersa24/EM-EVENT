@@ -14,7 +14,7 @@
                     </li>
                     <!-- <li><a href="#"><i class="mdi-action-face-unlock"></i> Profile</a>
                     </li> -->
-                    <li class="bold"><a href="index.html" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
+                    <li class="bold"><a href="<?=base_url('agenda')?>" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
                     </li>
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">

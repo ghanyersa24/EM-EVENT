@@ -6,7 +6,7 @@ class Biodata extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        header("content-type:application/json");
+        header('Content-Type: application/json');
         $this->load->helper('Parsing');
         $this->load->model('Userbio');
     }
@@ -45,7 +45,11 @@ class Biodata extends CI_Controller
         $darah          = r($this->input->post('darah'));
         $pdh            = r($this->input->post('pdh'));
         $hijab          = r($this->input->post('hijab'));
-        $portofolio     = r($this->input->post('portofolio'));
+        if($hijab=='on'){
+            $hijab='BERHIJAB';
+        }else{
+            $hijab='TIDAK BERHIJAB';
+        }
 
         $dataBio = array(
             'NIM'               => $nim,
@@ -77,8 +81,7 @@ class Biodata extends CI_Controller
             'RIWAYAT_SAKIT'     => $riwayat_sakit,
             'DARAH'                => $darah,
             'PDH'                => $pdh,
-            'HIJAB'                => $hijab,
-            'PORTOFOLIO'        => $portofolio,
+            'HIJAB'                => $hijab
         );
 
         if (empty($nim)) {
@@ -90,6 +93,7 @@ class Biodata extends CI_Controller
             ));
         } else {
             $checkLanjutan = checkCIAM($nim, $auth);
+            // var_dump($checkLanjutan);
             if ($checkLanjutan->status === true) {
 
                 if (!$this->Userbio->checkNIM($nim, 'TB_BIODATA')) {
@@ -179,6 +183,7 @@ class Biodata extends CI_Controller
         $instansi_pnf   = r($this->input->post('instansi_pnf'));
         $tahun_pnf      = r($this->input->post('tahun_pnf'));
 
+
         if (empty($nim)) {
             echo json_encode(array(
                 'status' => 200,
@@ -203,21 +208,21 @@ class Biodata extends CI_Controller
                 }
                 $do = $this->Userbio->addPendForml($dataPendForml);
                 if ($do !== false) {
-                    echo json_encode(array(
-                        'status' => 200,
-                        'error' => false,
-                        'message' => 'Data Pendidikan Formal is updated',
-                        'data' => $dataPendForml
-                    ));
+                    // echo json_encode(array(
+                    //     'status' => 200,
+                    //     'error' => false,
+                    //     'message' => 'Data Pendidikan Formal is updated',
+                    //     'data' => $dataPendForml
+                    // ));
                 } else {
-                    echo json_encode(
-                        array(
-                            'status' => 500,
-                            'error' => true,
-                            'message' => 'Gagal melakukan fungsi Pendidikan Formal',
-                            'data' => null
-                        )
-                    );
+                    // echo json_encode(
+                    //     array(
+                    //         'status' => 500,
+                    //         'error' => true,
+                    //         'message' => 'Gagal melakukan fungsi Pendidikan Formal',
+                    //         'data' => null
+                    //     )
+                    // );
                 }
 
                 // ---------------------------PENDIDIKAN NON FORMAL -----------------------------//
@@ -238,7 +243,7 @@ class Biodata extends CI_Controller
                         'status' => 200,
                         'error' => false,
                         'message' => 'Data Pendidikan non Formal is updated',
-                        'data' => $dataPendForml
+                        'data' => $dataPendNon
                     ));
                 } else {
                     echo json_encode(
@@ -298,21 +303,21 @@ class Biodata extends CI_Controller
 
                 $do = $this->Userbio->addOrgPenglm($dataOrgPenglm);
                 if ($do !== false) {
-                    echo json_encode(array(
-                        'status' => 200,
-                        'error' => false,
-                        'message' => 'Data Pengalaman Organisasi is updated',
-                        'data' => $dataOrgPenglm
-                    ));
+                    // echo json_encode(array(
+                    //     'status' => 200,
+                    //     'error' => false,
+                    //     'message' => 'Data Pengalaman Organisasi is updated',
+                    //     'data' => $dataOrgPenglm
+                    // ));
                 } else {
-                    echo json_encode(
-                        array(
-                            'status' => 500,
-                            'error' => true,
-                            'message' => 'Gagal melakukan fungsi Pengalaman Organisasi',
-                            'data' => null
-                        )
-                    );
+                    // echo json_encode(
+                    //     array(
+                    //         'status' => 500,
+                    //         'error' => true,
+                    //         'message' => 'Gagal melakukan fungsi Pengalaman Organisasi',
+                    //         'data' => null
+                    //     )
+                    // );
                 }
 
                 // ------------------ ORGANISASI DIIKUTI------------------//
@@ -394,21 +399,21 @@ class Biodata extends CI_Controller
                 }
                 $do = $this->Userbio->addKepPenglm($dataKepPenglm);
                 if ($do !== false) {
-                    echo json_encode(array(
-                        'status' => 200,
-                        'error' => false,
-                        'message' => 'Data Pengalaman Kepanitiaan is updated',
-                        'data' => $dataKepPenglm
-                    ));
+                    // echo json_encode(array(
+                    //     'status' => 200,
+                    //     'error' => false,
+                    //     'message' => 'Data Pengalaman Kepanitiaan is updated',
+                    //     'data' => $dataKepPenglm
+                    // ));
                 } else {
-                    echo json_encode(
-                        array(
-                            'status' => 500,
-                            'error' => true,
-                            'message' => 'Gagal melakukan fungsi Pengalaman Kepanitiaan',
-                            'data' => null
-                        )
-                    );
+                    // echo json_encode(
+                    //     array(
+                    //         'status' => 500,
+                    //         'error' => true,
+                    //         'message' => 'Gagal melakukan fungsi Pengalaman Kepanitiaan',
+                    //         'data' => null
+                    //     )
+                    // );
                 }
 
                 // ------------------ KEPANITIAAN DIIKUTI------------------//
@@ -490,21 +495,21 @@ class Biodata extends CI_Controller
                 }
                 $do = $this->Userbio->addPrestasi($dataPrestasi);
                 if ($do !== false) {
-                    echo json_encode(array(
-                        'status' => 200,
-                        'error' => false,
-                        'message' => 'Data Prestasi is updated',
-                        'data' => $dataPrestasi
-                    ));
+                    // echo json_encode(array(
+                    //     'status' => 200,
+                    //     'error' => false,
+                    //     'message' => 'Data Prestasi is updated',
+                    //     'data' => $dataPrestasi
+                    // ));
                 } else {
-                    echo json_encode(
-                        array(
-                            'status' => 500,
-                            'error' => true,
-                            'message' => 'Gagal melakukan fungsi Prestasi',
-                            'data' => null
-                        )
-                    );
+                    // echo json_encode(
+                    //     array(
+                    //         'status' => 500,
+                    //         'error' => true,
+                    //         'message' => 'Gagal melakukan fungsi Prestasi',
+                    //         'data' => null
+                    //     )
+                    // );
                 }
 
                 // ----------------------PERFORM --------------------//
@@ -566,6 +571,7 @@ class Biodata extends CI_Controller
         $alasan_umum = r($this->input->post('alasan_umum'));
         $target = r($this->input->post('target'));
         $ide_kreatif = r($this->input->post('ide_kreatif'));
+        $portofolio = r($this->input->post('portofolio'));
 
         $data = array(
             'ID_AGENDA'             => $id_agenda,
@@ -580,6 +586,7 @@ class Biodata extends CI_Controller
             'ALASAN_UMUM'           => $alasan_umum,
             'TARGET'                => $target,
             'IDE_KREATIF'           => $ide_kreatif,
+            'PORTOFOLIO'           => $portofolio
         );
 
         if (empty($nim)) {
@@ -592,8 +599,8 @@ class Biodata extends CI_Controller
         } else {
             $checkLanjutan = checkCIAM($nim, $auth);
             if ($checkLanjutan->status === true) {
-                $ada = $this->Userbio->checkNIM($nim, 'TB_BIODATA');
-                if (!$ada) {
+                $salah = $this->Userbio->checkNIM($nim, 'TB_BIODATA');
+                if ($salah) {
                     $this->Userbio->addBD(array('NIM' => $nim));
                 }
                 if (!$this->Userbio->checkID($id_agenda, 'ID_AGENDA', 'TB_AGENDA')) {
@@ -865,17 +872,18 @@ class Biodata extends CI_Controller
             $data = array(
                 "BIODATA" => array(
                     "NIM" => $res["NIM"],
-                    "PORTOFOLIO" => $res["PORTOFOLIO"]
+                    "AGAMA"=> $res["AGAMA"]
                 ),
                 "JADWAL" => json_decode($res["JADWAL"]),
                 "PILIHAN" => json_decode($res["PILIHAN"]),
                 "DAFTAR" => json_decode($res["DAFTAR"]),
+                "AGENDA" => json_decode($res["AGENDA"]),
             );
             echo json_encode(
                 array(
                     'status' => 200,
-                    'error' => true,
-                    'message' => 'data tidak berhasil diterima',
+                    'error' => false,
+                    'message' => 'data berhasil diterima',
                     'data' => $data
                 )
             );
@@ -902,15 +910,15 @@ class Biodata extends CI_Controller
             $res["PENDIDIKAN_NON_FORMAL"]=json_decode($res["PENDIDIKAN_NON_FORMAL"]);
             $res["PENGALAMAN_KEPANITIAAN"]=json_decode($res["PENGALAMAN_KEPANITIAAN"]);
             $res["KEPANITIAAN_DIIKUTI"]=json_decode($res["KEPANITIAAN_DIIKUTI"]);
-            $res["PENGALAMAN_ORGNASASI"]=json_decode($res["PENGALAMAN_ORGNASASI"]);
+            $res["PENGALAMAN_ORGANISASI"]=json_decode($res["PENGALAMAN_ORGANISASI"]);
             $res["ORGANISASI_DIIKUTI"]=json_decode($res["ORGANISASI_DIIKUTI"]);
             $res["PRESTASI"]=json_decode($res["PRESTASI"]);
             $res["PERFORM"]=json_decode($res["PERFORM"]);
             echo json_encode(
                 array(
                     'status' => 200,
-                    'error' => true,
-                    'message' => 'data tidak berhasil diterima',
+                    'error' => false,
+                    'message' => 'data berhasil diterima',
                     'data' => $res
                 )
             );

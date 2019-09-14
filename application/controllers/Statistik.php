@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Statistik extends CI_Controller
 {
 
-	public function index()
+	public function index($id)
 	{
 		$data = array(
 			'content' => 'content/event/Statistik'

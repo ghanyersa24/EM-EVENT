@@ -29,11 +29,11 @@
 
 <body>
     <!-- Start Page Loading -->
-    <div id="loader-wrapper">
+    <!-- <div id="loader-wrapper">
         <div id="loader"></div>
         <div class="loader-section section-left"></div>
         <div class="loader-section section-right"></div>
-    </div>
+    </div> -->
     <!-- End Page Loading -->
 
     <!-- //////////////////////////////////////////////////////////////////////////// -->
@@ -55,7 +55,7 @@
                     <div id="beranda" class="row">
                         <div class="col m3">
                             <ul class="nav-2">
-
+                                <h5 class=" light-blue-text accent-4">REKRUTMEN KITA</h5>
                                 <li><a href="<?= base_url("presensi/") ?>" class="waves-effect waves-cyan"><i class="mdi-action-spellcheck"></i> Presensi</a>
                                 </li>
                                 <li><a href="<?= base_url("plotting/") ?>" class="waves-effect waves-cyan"><i class="mdi-action-assignment-turned-in"></i> Plotingan</a>
