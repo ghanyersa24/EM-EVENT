@@ -1,6 +1,6 @@
 <!--start container-->
 <div class="container row">
-    <?php
+    <!-- <?php
     foreach ($data as $cetak) {
         ?>
         <div class="col m3">
@@ -14,7 +14,7 @@
         </div>
     <?php
     }
-    ?>
+    ?> -->
 
     <!-- --start modal -->
     <div id="modal2" class="modal" style="z-index: 4">

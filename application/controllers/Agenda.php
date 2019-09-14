@@ -18,8 +18,7 @@ class Agenda extends CI_Controller
 		$data = array(
 			'content' => 'content/Dashboard'
 		);
-		echo json_encode(($data));
-		// $this->load->view('Template', $data);
+		$this->load->view('Template', $data);
 	}
 
 	public function set()
