@@ -6,7 +6,7 @@ function r($value)
 	$search = array("'",  '"');
 	$replace = array(" ");
 	if (is_null($value)) {
-		return "-";
+		return "";
 	}
 	return str_replace($search, $replace, $value);
 }
