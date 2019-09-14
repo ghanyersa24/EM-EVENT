@@ -1,49 +1,24 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pengurus extends CI_Controller
+class Pilihan extends CI_Controller
 {
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('M_pengurus');
 		$this->load->model('M_agenda');
+		$this->load->model('Master');
 		$this->load->helper('text');
 		$this->load->helper('Parsing');
 	}
 
-	public function set()
-	{
-		$data = array(
-			"ID_PILIHAN" =>  r($this->input->POST('id_pilihan')),
-			"NIM" => r($this->input->POST('nim')),
-			"ID_AGENDA" => r($this->input->POST('id_agenda')),
-			"NAMA" => r($this->input->POST('nama')),
-			"TELPON" => r($this->input->POST('telpon')),
-			"LINE" => r($this->input->POST('line')),
-		);
-		$check = $this->Master->insert('TB_PENGURUS', $data);
-		if ($check) {
-			$data = array(
-				'status' => true,
-				'message' => 'Data berhasil diinput',
-				'data' => $data
-			);
-		} else {
-			$data = array(
-				'status' => false,
-				'message' => 'Data gagal diinputkan',
-				'data' => $data
-			);
-		}
-		echo json_encode($data);
-	}
-
 	public function setPilihan()
 	{
+		$idagenda = 20;
 		$data = array(
 			"ID_PILIHAN" =>  "",
-			"ID_AGENDA" => r($this->input->POST('id_agenda')),
+			"ID_AGENDA" => $idagenda,
 			"TB_PILIHAN" => r($this->input->POST('pilihan')),
 			"HAK" => r($this->input->POST('hak')),
 		);
@@ -64,79 +39,76 @@ class Pengurus extends CI_Controller
 		echo json_encode($data);
 	}
 
-	public function get()
+
+	public function getID()
 	{
-		$idagenda = 7;
-		$check = $this->M_agenda->checkAgenda($idagenda);
-		if ($check) {
-			$data = $this->M_pengurus->get($idagenda);
-			if (empty($data)) {
-				echo json_encode(
-					array(
-						'status' => 200,
-						'error' => true,
-						'message' => 'data tidak berhasil diterima',
-						'data' => null
-					)
-				);
-			} else {
-				echo json_encode(
-					array(
-						'status' => 200,
-						'error' => false,
-						'message' => 'data berhasil diterima',
-						'data' => $data
-					)
-				);
-			}
-		} else {
+		$idpilihan = 16;
+		$data = $this->Master->get('TB_PILIHAN', array('ID_PILIHAN' => $idpilihan));
+		if (empty($data)) {
 			echo json_encode(
 				array(
 					'status' => 200,
 					'error' => true,
-					'message' => 'data agenda tidak cocok',
+					'message' => 'data tidak berhasil diterima',
 					'data' => null
+				)
+			);
+		} else {
+			echo json_encode(
+				array(
+					'status' => 200,
+					'error' => false,
+					'message' => 'data berhasil diterima',
+					'data' => $data
 				)
 			);
 		}
 	}
-	public function getID()
+
+	public function update()
 	{
-		$idagenda = 7;
-		$nim = '165150401111060';
-		$idpilihan = 14;
-		$check = $this->M_agenda->checkAgenda($idagenda);
+		$idlama = r($this->input->POST('idlama'));
+		$idagenda = r($this->input->POST('idagenda'));
+		$data = array(
+			"ID_PILIHAN" =>  r($this->input->POST('id_pilihan')),
+			"TB_PILIHAN" => r($this->input->POST('pilihan')),
+			"HAK" => r($this->input->POST('hak')),
+		);
+		$check = $this->Master->update('TB_PILIHAN', $data, array('ID_PILIHAN' => $idlama, 'ID_AGENDA' => $idagenda));
 		if ($check) {
-			$data = $this->M_pengurus->getID($nim, $idpilihan, $idagenda);
-			if (empty($data)) {
-				echo json_encode(
-					array(
-						'status' => 200,
-						'error' => true,
-						'message' => 'data tidak berhasil diterima',
-						'data' => null
-					)
-				);
-			} else {
-				$data['PILIHAN']=json_decode($data['PILIHAN']);
-				echo json_encode(
-					array(
-						'status' => 200,
-						'error' => false,
-						'message' => 'data berhasil diterima',
-						'data' => $data
-					)
-				);
-			}
+			$data = array(
+				'status' => true,
+				'message' => 'Data berhasil diupdate',
+				'data' => $data
+			);
 		} else {
-			echo json_encode(
-				array(
-					'status' => 200,
-					'error' => true,
-					'message' => 'data agenda tidak cocok',
-					'data' => null
-				)
+			$data = array(
+				'status' => false,
+				'message' => 'Data gagal diupdate',
+				'data' => $data
 			);
 		}
+		echo json_encode($data);
+	}
+
+	public function delete()
+	{
+		$idagenda = 20;
+		$id = r($this->input->POST('id_pilihan'));
+		$check = $this->Master->delete('TB_PILIHAN', array('ID_PILIHAN' => $id, 'ID_AGENDA' => $idagenda));
+		if ($check) {
+			$data = array(
+				'status' => true,
+				'message' => 'Data berhasil dihapus',
+				'data' => $check
+			);
+		} else {
+			$data = array(
+				'status' => false,
+				'message' => 'Data gagal dihapus',
+				'data' => $check
+			);
+		}
+		echo json_encode($data);
 	}
 }
