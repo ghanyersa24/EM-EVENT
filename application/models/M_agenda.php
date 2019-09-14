@@ -12,4 +12,13 @@ class M_agenda extends CI_Model
 		$query = $this->db->where(array('NIM' => $nim))->get('TB_AGENDA')->result_array();
 		return $query;
 	}
+	function checkAgenda($id)
+	{
+		$query = $this->db->where(array('ID_AGENDA'=>$id))->get('TB_AGENDA')->result_array();
+		if (!empty($query)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

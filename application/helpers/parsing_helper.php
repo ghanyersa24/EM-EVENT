@@ -14,6 +14,7 @@ function r($value)
 function checkCIAM($nim, $auth)
 {
 	$auth = base64_decode($auth);
-	$url = file_get_contents("https://em.ub.ac.id/redirect/login/loginAppsCiam/?nim=".$nim."&password=".$auth);
+	$url = file_get_contents("https://em.ub.ac.id/redirect/login/loginAppsCiam/?nim=" . $nim . "&password=" . $auth);
 	return json_decode($url);
 }
+

@@ -117,8 +117,8 @@ class Agenda extends CI_Controller
 	}
 	public function delete()
 	{
-		$nim = r($this->input->POST('NIM'));
-		$id = r($this->input->POST('ID_AGENDA'));
+		$nim = r($this->input->POST('nim'));
+		$id = r($this->input->POST('id_agenda'));
 		$check = $this->Master->delete('TB_AGENDA', array('NIM' => $nim, 'ID_AGENDA' => $id));
 		if ($check) {
 			$data = array(
