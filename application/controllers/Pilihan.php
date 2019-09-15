@@ -39,6 +39,31 @@ class Pilihan extends CI_Controller
 		echo json_encode($data);
 	}
 
+	public function get($idencode)
+	{
+		$idencode = base64_encode($idencode);
+		$idagenda = base64_decode($idencode);
+		$data = $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $idagenda));
+		if (empty($data)) {
+			echo json_encode(
+				array(
+					'status' => 200,
+					'error' => true,
+					'message' => 'data tidak berhasil diterima',
+					'data' => null
+				)
+			);
+		} else {
+			echo json_encode(
+				array(
+					'status' => 200,
+					'error' => false,
+					'message' => 'data berhasil diterima',
+					'data' => $data
+				)
+			);
+		}
+	}
 
 	public function getID()
 	{

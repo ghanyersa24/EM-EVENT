@@ -56,18 +56,19 @@
                         <div class="col m3">
                             <ul class="nav-2">
                                 <h5 class=" light-blue-text accent-4">REKRUTMEN KITA</h5>
-                                <li><a href="<?= base_url("presensi/") ?>" class="waves-effect waves-cyan"><i class="mdi-action-spellcheck"></i> Presensi</a>
+                                <li><a href="<?= base_url("presensi/$idagenda") ?>" class="waves-effect waves-cyan"><i class="mdi-action-spellcheck"></i> Presensi</a>
                                 </li>
-                                <li><a href="<?= base_url("plotting/") ?>" class="waves-effect waves-cyan"><i class="mdi-action-assignment-turned-in"></i> Plotingan</a>
+                                <li><a href="<?= base_url("plotting/$idagenda") ?>" class="waves-effect waves-cyan"><i class="mdi-action-assignment-turned-in"></i> Plotingan</a>
                                 </li>
-                                <li><a href="<?= base_url("statistik/") ?>" class="waves-effect waves-cyan"><i class="mdi-av-equalizer"></i> Data Statistik</a>
+                                <li><a href="<?= base_url("statistik/$idagenda") ?>" class="waves-effect waves-cyan"><i class="mdi-av-equalizer"></i> Data Statistik</a>
                                 </li>
                                 <li class="bold divisi"><a class="waves-effect waves-cyan"><i class="mdi-social-location-city"></i> Divisi</a>
                                     <ul>
                                         <?php
-                                        for ($i = 0; $i < 10; $i++) {
+                                        foreach ($divisi as $cetak) {
+                                            $idpilihan = base64_encode($cetak['ID_PILIHAN']);
                                             ?>
-                                            <li><a href="<?= base_url("divisi/list/$i") ?>" class="waves-effect waves-cyan"><i class="mdi-image-nature"></i> Lorem <?= $i ?></a>
+                                            <li><a href="<?= base_url("divisi/$idagenda/$idpilihan") ?>" class="waves-effect waves-cyan"><i class="mdi-image-nature"></i> <?= $cetak['TB_PILIHAN'] ?></a>
                                             </li>
                                         <?php
                                         }

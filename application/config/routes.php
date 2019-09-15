@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -66,7 +66,10 @@ $route['getBio/(:any)/(:any)'] = 'biodata/getDataBiodata/$1/$2';
 // --------------------GET---------------------------
 
 // --------------------ADMIN---------------------------
+$route['presensi/(:any)'] = 'presensi/index/$1';
+$route['plotting/(:any)'] = 'plotting/index/$1';
 $route['statistik/(:any)'] = 'statistik/index/$1';
+$route['divisi/(:any)/(:any)'] = 'divisi/list/$1/$2';
 // --------------------ADMIN---------------------------
 
 $route['default_controller'] = 'Dashboard';

@@ -7,7 +7,7 @@
                 <ul class="nav-left">
                     <li>
                         <h1 class="logo-wrapper" style="margin-left:3vw">
-                            <a href="index.html" class="brand-logo darken-1"><img src="<?= base_url('assets/images/') ?>em-event.png" alt="materialize logo"></a> <span class="logo-text">Materialize</span></h1>
+                            <a href="<?=base_url('agenda')?>" class="brand-logo darken-1"><img src="<?= base_url('assets/images/') ?>em-event.png" alt="materialize logo"></a> <span class="logo-text">Materialize</span></h1>
                     </li>
                 </ul>
                 <div class="header-search-wrapper hide-on-med-and-down">

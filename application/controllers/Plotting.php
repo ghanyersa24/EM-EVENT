@@ -10,13 +10,22 @@ class Plotting extends CI_Controller
 		$this->load->helper('Parsing');
 		$this->load->Model('Master');
 		$this->load->Model('M_plotting');
+		$this->load->Model('M_agenda');
 	}
-	public function index()
+	public function index($idagenda)
 	{
-		$data = array(
-			'content' => 'content/event/Plotting'
-		);
-		$this->load->view('Template-detail', $data);
+		$id = base64_decode($idagenda);
+		$check = $this->M_agenda->check($id);
+		if ($check) {
+			$data = array(
+				'content' => 'content/event/Plotting',
+				'idagenda' => $idagenda,
+				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))
+			);
+			$this->load->view('Template-detail', $data);
+		} else {
+			redirect('agenda');
+		}
 	}
 
 	public function get()
