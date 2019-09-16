@@ -13,7 +13,7 @@ class Presensi extends CI_Controller
 	}
 	public function index($idagenda)
 	{
-		
+
 		$id = base64_decode($idagenda);
 		$check = $this->M_agenda->check($id);
 		if ($check) {
@@ -30,15 +30,17 @@ class Presensi extends CI_Controller
 
 	public function get()
 	{
-		$idagenda = r($this->input->post('id_agenda'));
-		$nim = r($this->input->post('nim'));
+		// $idagenda = r($this->input->post('id_agenda'));
+		// $nim = r($this->input->post('nim'));
+		$idagenda = 14;
+		$nim = '175150400111035';
 		$data = $this->M_presensi->get($nim, $idagenda);
 		if (empty($data)) {
 			echo json_encode(
 				array(
 					'status' => 200,
 					'error' => true,
-					'message' => 'data agenda tidak berhasil diterima',
+					'message' => 'data presensi tidak berhasil diterima',
 					'data' => null
 				)
 			);
@@ -47,8 +49,8 @@ class Presensi extends CI_Controller
 				array(
 					'status' => 200,
 					'error' => false,
-					'message' => 'data agenda berhasil diterima',
-					'data' => $data
+					'message' => 'data presensi berhasil diterima',
+					'data' => $data[0]
 				)
 			);
 		}
@@ -56,12 +58,14 @@ class Presensi extends CI_Controller
 
 	public function update()
 	{
-		$id = r($this->input->post('id_agenda'));
-		$nim = r($this->input->post('nim'));
+		// $id = r($this->input->post('id_agenda'));
+		// $nim = r($this->input->post('nim'));
+		$idagenda = 14;
+		$nim = '175150400111035';
 		$data = array(
 			'STATUS' => 'SCREENING'
 		);
-		$check = $this->Master->update('TB_DAFTAR', $data, array('ID_AGENDA' => $id, 'NIM' => $nim));
+		$check = $this->Master->update('TB_DAFTAR', $data, array('ID_AGENDA' => $idagenda, 'NIM' => $nim));
 		if ($check) {
 			$data = array(
 				'status' => true,
@@ -72,7 +76,7 @@ class Presensi extends CI_Controller
 			$data = array(
 				'status' => false,
 				'message' => 'Gagal melakukan presensi',
-				'data' => $check
+				'data' => $data
 			);
 		}
 		echo json_encode($data);

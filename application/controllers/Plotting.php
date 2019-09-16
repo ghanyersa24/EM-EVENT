@@ -32,6 +32,8 @@ class Plotting extends CI_Controller
 	{
 		$idagenda = r($this->input->post('id_agenda'));
 		$nim = r($this->input->post('nim'));
+		// $idagenda=10;
+		// $nim='175150400111035';
 		$data = $this->M_plotting->get($nim, $idagenda);
 		if (empty($data)) {
 			echo json_encode(
@@ -43,13 +45,13 @@ class Plotting extends CI_Controller
 				)
 			);
 		} else {
-			$data['PILIHAN'] = json_decode($data['PILIHAN']);
+			$data[0]['PILIHAN'] = json_decode($data[0]['PILIHAN']);
 			echo json_encode(
 				array(
 					'status' => 200,
 					'error' => false,
 					'message' => 'data agenda berhasil diterima',
-					'data' => $data
+					'data' => $data[0]
 				)
 			);
 		}
@@ -57,14 +59,16 @@ class Plotting extends CI_Controller
 
 	public function update()
 	{
-		$id = r($this->input->post('id_agenda'));
+		$idagenda = r($this->input->post('id_agenda'));
 		$nim = r($this->input->post('nim'));
+		// $idagenda = 10;
+		// $nim = '175150400111035';
 		$id_pilihan = r($this->input->post('id_pilihan'));
 		$data = array(
 			'STATUS' => 'DITERIMA',
 			'ID_PILIHAN_DITERIMA' => $id_pilihan
 		);
-		$check = $this->Master->update('TB_DAFTAR', $data, array('ID_AGENDA' => $id, 'NIM' => $nim));
+		$check = $this->Master->update('TB_DAFTAR', $data, array('ID_AGENDA' => $idagenda, 'NIM' => $nim));
 		if ($check) {
 			$data = array(
 				'status' => true,
@@ -83,13 +87,16 @@ class Plotting extends CI_Controller
 
 	public function updateDrop()
 	{
-		$id = r($this->input->post('id_agenda'));
-		$nim = r($this->input->post('nim'));
+		
+		// $id = r($this->input->post('id_agenda'));
+		// $nim = r($this->input->post('nim'));
+		$idagenda = 10;
+		$nim = '175150400111035';
 		$data = array(
-			'STATUS' => 'DITERIMA',
+			'STATUS' => 'SCREENING',
 			'ID_PILIHAN_DITERIMA' => 0
 		);
-		$check = $this->Master->update('TB_DAFTAR', $data, array('ID_AGENDA' => $id, 'NIM' => $nim));
+		$check = $this->Master->update('TB_DAFTAR', $data, array('ID_AGENDA' => $idagenda, 'NIM' => $nim));
 		if ($check) {
 			$data = array(
 				'status' => true,
