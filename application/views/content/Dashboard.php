@@ -4,7 +4,7 @@
     foreach ($data as $cetak) {
         ?>
         <div class="col m3">
-            <a href="<?= base_url('statistik/' . base64_encode($cetak['ID_AGENDA'])) ?>">
+            <a href="<?= base_url('statistik/index/' . base64_encode($cetak['ID_AGENDA'])) ?>">
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light"><img class="activator" style="height: 200px" src="<?= $cetak['FOTO'] ?>" alt="foto Agenda"></div>
                     <div class="card-content"><span class="card-title activator grey-text text-darken-4"><?= character_limiter($cetak['TB_AGENDA'], 10) ?></span>
