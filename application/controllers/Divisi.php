@@ -13,7 +13,7 @@ class Divisi extends CI_Controller
 		$this->load->helper('text');
 		$this->load->helper('Parsing');
 	}
-	public function list($idagenda,$idpilihan)
+	public function list($idagenda, $idpilihan)
 	{
 		$id = base64_decode($idagenda);
 		$check = $this->M_agenda->check($id);
@@ -57,7 +57,7 @@ class Divisi extends CI_Controller
 
 	public function getBio()
 	{
-		$nim = '175030100111059';
+		$nim = r($this->input->post('nim'));
 		$idagenda = 3;
 		$res = $this->Userbio->waiting($nim, $idagenda);
 		if (empty($res)) {
