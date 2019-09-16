@@ -32,14 +32,39 @@
 </div>
 
 <script>
+    var id_agenda = '<?= $idagenda;?>';
+    id_agenda = window.atob(id_agenda);
+    console.log(id_agenda);
     function presensi() {
         var nim = $('#nim').val();
-        var foto = "https://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim=" + nim + "&key=MzIxZm90b3V5ZTEyMysyMDE4LTA4LTIxIDIxOjA2OjAw";
-        $('#foto').attr('src', foto);
-        $('#nama').text('Ghany Abdillah Ersa');
-        var fakultas = 'Fakultas ' + 'Ilmu Komputer';
-        $('#fakultas').text(fakultas);
-        $('#nim_pop').text('165150401111060');
+        console.log("presensi");
+        
+        $.ajax({
+            
+            url:'<?php echo base_url('presensi/get')?>',
+            type:'POST',
+            data:{
+                id_agenda:id_agenda,
+                nim:nim
+            },
+            dataType:'json',            
+            success: (r) => {
+                console.log(r);
+                var foto = "https://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim=" + nim + "&key=MzIxZm90b3V5ZTEyMysyMDE4LTA4LTIxIDIxOjA2OjAw";
+            $('#foto').attr('src', foto);
+            $('#nama').text(r.data.NAMA_LENGKAP);
+            var fakultas = r.data.FAKULTAS;
+            $('#fakultas').text(fakultas);
+            $('#nim_pop').text(nim);
+            },
+            error: function(jqXHR, exception){
+                Toast.fire({
+            type: 'error',
+            title: 'Pokok error'
+            })
+            }
+        })
+        
     }
 
     function klik_presensi() {
