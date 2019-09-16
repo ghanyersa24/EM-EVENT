@@ -13,6 +13,7 @@ class Presensi extends CI_Controller
 	}
 	public function index($idagenda)
 	{
+		ghany push
 		$id = base64_decode($idagenda);
 		$check = $this->M_agenda->check($id);
 		if ($check) {
