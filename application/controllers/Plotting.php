@@ -30,8 +30,8 @@ class Plotting extends CI_Controller
 
 	public function get()
 	{
-		$nim = '175030100111059';
-		$idagenda = 3;
+		$idagenda = r($this->input->post('id_agenda'));
+		$nim = r($this->input->post('nim'));
 		$data = $this->M_plotting->get($nim, $idagenda);
 		if (empty($data)) {
 			echo json_encode(

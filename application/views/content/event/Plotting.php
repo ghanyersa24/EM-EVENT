@@ -37,70 +37,67 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        var pilihan = [{
-            "ID_PILIHAN": 20,
-            "TB_PILIHAN": "DIVISI ACARA"
-        }, {
-            "ID_PILIHAN": 21,
-            "TB_PILIHAN": "DIVISI PIT"
-        }, {
-            "ID_PILIHAN": 22,
-            "TB_PILIHAN": "DIVISI DDM"
-        }, {
-            "ID_PILIHAN": 23,
-            "TB_PILIHAN": "DIVISI HUMAS"
-        }, {
-            "ID_PILIHAN": 24,
-            "TB_PILIHAN": "DIVISI KONSUMSI"
-        }, {
-            "ID_PILIHAN": 25,
-            "TB_PILIHAN": "DIVISI PERLENGKAPAN"
-        }, {
-            "ID_PILIHAN": 26,
-            "TB_PILIHAN": "DIVISI KESTARI"
-        }, {
-            "ID_PILIHAN": 27,
-            "TB_PILIHAN": "DIVISI KESEHATAN"
-        }, {
-            "ID_PILIHAN": 28,
-            "TB_PILIHAN": "DIVISI KORLAP"
-        }, {
-            "ID_PILIHAN": 29,
-            "TB_PILIHAN": "DIVISI SPV"
-        }];
-
-        $.each(pilihan, function(i, item) {
-            var $newOpt = $("<option>").attr("value", item.ID_PILIHAN).text(item.TB_PILIHAN)
-            $("#myDropdown").append($newOpt);
-            $("#myDropdown").trigger('contentChanged');
-        });
-    });
-
-    function plotting() {
-        var nim = $('#nim').val();
-        var foto = "https://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim=" + nim + "&key=MzIxZm90b3V5ZTEyMysyMDE4LTA4LTIxIDIxOjA2OjAw";
-        $('#foto').attr('src', foto);
-        $('#nama').text('Ghany Abdillah Ersa');
-    }
-
-
-    function klik_plotting() {
-        var nim = $('#nim').val();
-        const Toast = Swal.mixin({
+var id_agenda = '<?= $idagenda;?>';
+    id_agenda = window.atob(id_agenda);
+    const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
             timer: 3000
         })
+var nim;
 
-        Toast.fire({
-            type: 'success',
-            title: 'Plottingan Berhasil Dilakukan'
+    
+
+    function plotting() {
+        nim = $("#nim").val();
+        $.ajax({
+            
+            url:'<?php echo base_url('plotting/get')?>',
+            type:'POST',
+            data:{
+                id_agenda:id_agenda,
+                nim:nim
+            },
+            dataType:'json',
+            success:(r)=>{
+                console.log(r);
+                r.PILIHAN.forEach(element => {
+                    $("#myDropdown").append($("<option>").attr("value",element.ID_PILIHAN).text(element.TB_PILIHAN));
+                });
+            var foto = "https://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim=" + nim + "&key=MzIxZm90b3V5ZTEyMysyMDE4LTA4LTIxIDIxOjA2OjAw";
+            $('#foto').attr('src', foto);
+            $('#nama').text(r.data.NAMA_LENGKAP);
+            }
         })
-        // Toast.fire({
-        //     type: 'error',
-        //     title: 'Plottingan Gagal Dilakukan'
-        // })
+        
+    }
+
+
+    function klik_plotting() {
+        let id_pilihan = $("#myDropdown").val();
+        $.ajax({
+            url:'<?php echo base_url('plotting/update')?>',
+            type:'POST',
+            data:{
+                id_agenda:id_agenda,
+                nim:nim,
+                id_pilihan:id_pilihan
+            },
+            dataType:'json',
+            success:(r)=>{
+                if(r.error == false){
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Plotting Berhasil Dilakukan'
+                    })
+                } else{
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Plotting Gagal Dilakukan'
+                    })
+                }
+            }
+        })
     }
 </script>

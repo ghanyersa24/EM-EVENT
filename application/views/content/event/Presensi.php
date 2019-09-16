@@ -81,24 +81,18 @@
             },
             dataType:'json',
             success:(r)=>{
-                console.log(r);
+                if(r.error == false){
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Presensi Interview Berhasil Dilakukan'
+                    })
+                } else{
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Presensi Interview Gagal Dilakukan'
+                    })
+                }
             }
-        })
-        
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        })
-
-        // Toast.fire({
-        //     type: 'success',
-        //     title: 'Presensi Interview Berhasil Dilakukan'
-        // })
-        Toast.fire({
-            type: 'error',
-            title: 'Presensi Interview Gagal Dilakukan'
-        })
+        })   
     }
 </script>
