@@ -14,7 +14,7 @@ class M_Presensi extends CI_Model
 						  ->join('TB_BIODATA', 'TB_DAFTAR.NIM = TB_BIODATA.NIM')
 						  ->join('TB_AGENDA', 'TB_DAFTAR.ID_AGENDA = TB_AGENDA.ID_AGENDA')
 						  ->where(array('TB_DAFTAR.NIM' => $nim, 'TB_DAFTAR.ID_AGENDA' => $idagenda))
-						  ->get()->result_array()[0];
+						  ->get()->result_array();
 		return $query;
 	}
 }
