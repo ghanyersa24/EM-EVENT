@@ -31,8 +31,8 @@ class Divisi extends CI_Controller
 
 	public function get()
 	{
-		$divisi = 8;
-		$idagenda = 3;
+		$divisi = r($this->input->post('divisi'));
+		$idagenda = r($this->input->post('id_agenda'));
 		$data = $this->M_divisi->get($divisi, $idagenda);
 		if (empty($data)) {
 			echo json_encode(

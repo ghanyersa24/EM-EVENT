@@ -14,7 +14,6 @@ class Agenda extends CI_Controller
 	}
 	public function index()
 	{
-		$nim = '165150401111060';
 		$data = array(
 			'content' => 'content/Dashboard'
 		);
@@ -23,7 +22,7 @@ class Agenda extends CI_Controller
 
 	public function set()
 	{
-		$nim = '165150401111060';
+		$nim = r($this->input->post('nim'));
 		$data = array(
 			"ID_AGENDA" => "",
 			"NIM" => $nim,
@@ -58,7 +57,7 @@ class Agenda extends CI_Controller
 	}
 	public function get()
 	{
-		$nim = '165150401111060';
+		$nim = r($this->input->post('nim'));
 		$data = $this->M_agenda->getAgenda($nim);
 		if (empty($data)) {
 			echo json_encode(
