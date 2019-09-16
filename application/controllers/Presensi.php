@@ -13,7 +13,7 @@ class Presensi extends CI_Controller
 	}
 	public function index($idagenda)
 	{
-		ghany push
+		
 		$id = base64_decode($idagenda);
 		$check = $this->M_agenda->check($id);
 		if ($check) {
@@ -30,8 +30,8 @@ class Presensi extends CI_Controller
 
 	public function get()
 	{
-		$nim = '175030100111059';
-		$idagenda = 3;
+		$id = r($this->input->post('id_agenda'));
+		$nim = r($this->input->post('nim'));
 		$data = $this->M_presensi->get($nim, $idagenda);
 		if (empty($data)) {
 			echo json_encode(

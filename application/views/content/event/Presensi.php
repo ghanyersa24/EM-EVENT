@@ -34,11 +34,9 @@
 <script>
     var id_agenda = '<?= $idagenda;?>';
     id_agenda = window.atob(id_agenda);
-    console.log(id_agenda);
+    var nim = $('#nim').val(); 
     function presensi() {
-        var nim = $('#nim').val();
-        console.log("presensi");
-        
+               
         $.ajax({
             
             url:'<?php echo base_url('presensi/get')?>',
@@ -68,7 +66,19 @@
     }
 
     function klik_presensi() {
-        var nim = $('#nim').val();
+        $.ajax({
+            url:'<?php echo base_url('presensi/get')?>',
+            type:'POST',
+            data:{
+                id_agenda:id_agenda,
+                nim:nim
+            },
+            dataType:'json',
+            success:(r)=>{
+                console.log(r);
+            }
+        })
+        
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
