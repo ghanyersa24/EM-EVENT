@@ -35,6 +35,12 @@
     var id_agenda = '<?= $idagenda;?>';
     id_agenda = window.atob(id_agenda);
     var nim = $('#nim').val(); 
+    const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        })
     function presensi() {
                
         $.ajax({

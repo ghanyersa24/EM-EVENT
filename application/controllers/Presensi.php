@@ -30,7 +30,7 @@ class Presensi extends CI_Controller
 
 	public function get()
 	{
-		$id = r($this->input->post('id_agenda'));
+		$idagenda = r($this->input->post('id_agenda'));
 		$nim = r($this->input->post('nim'));
 		$data = $this->M_presensi->get($nim, $idagenda);
 		if (empty($data)) {
