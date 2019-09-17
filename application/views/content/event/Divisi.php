@@ -44,6 +44,8 @@
 <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/data-tables/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/') ?>custom-script.js"></script>
 <script>
+var id_agenda = '<?= $idagenda;?>';
+id_agenda = window.atob(id_agenda);
     function buka(nim) {
         $('#nama').text(nim);
         $('#modal1').fadeIn('slow');

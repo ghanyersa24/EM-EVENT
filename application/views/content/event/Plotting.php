@@ -23,7 +23,7 @@
         <img id="foto" alt="foto calon">
         <h6 id="nama"></h6>
         <div class="input-field col s8 offset-s2">
-            <select id="myDropdown" class="materialSelect">
+            <select id="plotdiv" class="materialSelect">
                 <option value="" disabled selected>Pilih Divisi</option>
             </select>
             <label>Divisi</label>
@@ -51,6 +51,7 @@ var nim;
 
     function plotting() {
         nim = $("#nim").val();
+        
         $.ajax({
             
             url:'<?php echo base_url('plotting/get')?>',
@@ -60,10 +61,12 @@ var nim;
                 nim:nim
             },
             dataType:'json',
-            success:(r)=>{
-                console.log(r);
-                r.PILIHAN.forEach(element => {
-                    $("#myDropdown").append($("<option>").attr("value",element.ID_PILIHAN).text(element.TB_PILIHAN));
+            success:(r)=>{                
+                console.log(r);           
+                r.data.PILIHAN.forEach(element => {
+                    console.log(element);
+                    $("#plotdiv").append('<option value"'+element.ID_PILIHAN+'" >'+element.TB_PILIHAN+'</option>');
+                    $("#plotdiv").trigger('contentChanged');
                 });
             var foto = "https://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim=" + nim + "&key=MzIxZm90b3V5ZTEyMysyMDE4LTA4LTIxIDIxOjA2OjAw";
             $('#foto').attr('src', foto);
@@ -75,7 +78,7 @@ var nim;
 
 
     function klik_plotting() {
-        let id_pilihan = $("#myDropdown").val();
+        let id_pilihan = $("#plotdiv").val();
         $.ajax({
             url:'<?php echo base_url('plotting/update')?>',
             type:'POST',
