@@ -68,7 +68,7 @@
                                         foreach ($divisi as $cetak) {
                                             $idpilihan = base64_encode($cetak['ID_PILIHAN']);
                                             ?>
-                                            <li><a href="<?= base_url("divisi/index/$idagenda/$idpilihan") ?>" class="waves-effect waves-cyan"><i class="mdi-image-nature"></i> <?= $cetak['TB_PILIHAN'] ?></a>
+                                            <li><a href="<?= base_url("divisi/list/$idagenda/$idpilihan") ?>" class="waves-effect waves-cyan"><i class="mdi-image-nature"></i> <?= $cetak['TB_PILIHAN'] ?></a>
                                             </li>
                                         <?php
                                         }

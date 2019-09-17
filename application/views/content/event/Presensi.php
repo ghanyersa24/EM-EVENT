@@ -42,7 +42,7 @@
             timer: 3000
         })
     function presensi() {
-               
+        var nim = $('#nim').val(); 
         $.ajax({
             
             url:'<?php echo base_url('presensi/get')?>',
@@ -72,8 +72,9 @@
     }
 
     function klik_presensi() {
+        var nim = $('#nim').val(); 
         $.ajax({
-            url:'<?php echo base_url('presensi/get')?>',
+            url:'<?php echo base_url('presensi/update')?>',
             type:'POST',
             data:{
                 id_agenda:id_agenda,
@@ -81,7 +82,7 @@
             },
             dataType:'json',
             success:(r)=>{
-                if(r.error == false){
+                if(r.message == "Berhasil melakukan presensi"){
                     Toast.fire({
                         type: 'success',
                         title: 'Presensi Interview Berhasil Dilakukan'

@@ -62,6 +62,21 @@
 <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/chartjs/chart.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/chartjs/chart-script.js"></script>
 <script>
+var id_agenda = '<?= $idagenda;?>';
+id_agenda = window.atob(id_agenda);
+    $(document).ready(function(){
+        $.ajax({
+            url:'<?php echo base_url('statistik/get')?>',
+            type:'POST',
+            data:{
+                id_agenda : id_agenda
+            },
+            dataType:'json',
+            success:(r)=>{
+                console.log(r);
+            }
+        })
+    })
     var trendingLineChart;
     var data = {
         labels: ["22 Agustus", "23 Agustus", "24 Agustus", "25 Agustus", "26 Agustus", "27 Agustus", "28 Agustus"],
