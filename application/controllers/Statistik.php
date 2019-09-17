@@ -28,8 +28,8 @@ class Statistik extends CI_Controller
 	}
 	public function get()
 	{
-		$idagenda = r($this->input->post('id_agenda'));
-		// $idagenda=1;
+		// $idagenda = r($this->input->post('id_agenda'));
+		$idagenda = 12;
 		$data = $this->M_statistik->get($idagenda);
 		if (empty($data)) {
 			echo json_encode(
@@ -41,6 +41,18 @@ class Statistik extends CI_Controller
 				)
 			);
 		} else {
+			$send = array();
+			$i=0;
+			// foreach ($data as $temp) {
+			// 	if ($data[$i]["STATUS"] == 'DAFTAR') {
+			// 		$send["DAFTAR"][]=$temp;
+			// 	}else if($data[$i]["STATUS"]=='SCREENING'){
+			// 		$send["SCREENING"][]=$temp;
+			// 	}else if($data[$i]["STATUS"]=='DITERIMA'){
+			// 		$send["DITERIMA"][]=$temp;
+			// 	}
+			// 	$i++;
+			// }
 			echo json_encode(
 				array(
 					'status' => 200,
