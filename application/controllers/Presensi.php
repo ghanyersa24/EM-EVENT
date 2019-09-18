@@ -58,10 +58,10 @@ class Presensi extends CI_Controller
 
 	public function update()
 	{
-		// $id = r($this->input->post('id_agenda'));
-		// $nim = r($this->input->post('nim'));
-		$idagenda = 14;
-		$nim = '175150400111035';
+		$id = r($this->input->post('id_agenda'));
+		$nim = r($this->input->post('nim'));
+		// $idagenda = 14;
+		// $nim = '175150400111035';
 		$data = array(
 			'STATUS' => 'SCREENING'
 		);

@@ -79,8 +79,8 @@ class Pengurus extends CI_Controller
 	public function getID()
 	{
 		$idagenda = 7;
-		$nim = '165150401111060';
-		$idpilihan = 14;
+		$nim = r($this->input->POST('nim'));
+		$idpilihan = r($this->input->POST('pilihan'));
 		$check = $this->M_agenda->checkAgenda($idagenda);
 		if ($check) {
 			$data = $this->M_pengurus->getID($nim, $idpilihan, $idagenda);
