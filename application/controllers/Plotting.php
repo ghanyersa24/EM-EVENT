@@ -71,13 +71,13 @@ class Plotting extends CI_Controller
 		$check = $this->Master->update('TB_DAFTAR', $data, array('ID_AGENDA' => $idagenda, 'NIM' => $nim));
 		if ($check) {
 			$data = array(
-				'status' => true,
+				'error' => false,
 				'message' => 'Berhasil diterima',
 				'data' => $data
 			);
 		} else {
 			$data = array(
-				'status' => false,
+				'error' => true,
 				'message' => 'Tidak berhasil diterima',
 				'data' => $check
 			);
@@ -99,13 +99,13 @@ class Plotting extends CI_Controller
 		$check = $this->Master->update('TB_DAFTAR', $data, array('ID_AGENDA' => $idagenda, 'NIM' => $nim));
 		if ($check) {
 			$data = array(
-				'status' => true,
+				'error' => false,
 				'message' => 'Berhasil diterima',
 				'data' => $data
 			);
 		} else {
 			$data = array(
-				'status' => false,
+				'error' => true,
 				'message' => 'Tidak berhasil diterima',
 				'data' => $check
 			);
