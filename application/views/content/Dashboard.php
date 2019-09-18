@@ -1,20 +1,8 @@
 <!--start container-->
-<div class="container row">
-<div class="col s3">
-    <div class="card">
-        <div class="card-image waves-effect waves-block waves-light">
-        <img class="activator" src="<?=base_url('assets/images'); ?>/img1.jpg">
-        </div>
-        <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-        <p><a href="#">This is a link</a></p>
-        </div>
-        <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-        <p>Here is some more information about this product that is only revealed once clicked on.</p>
-        </div>
+<div class="container">
+<div id="agendawrap" class="row">
+    
     </div>
-  </div>
     <!-- <?php
     foreach ($data as $cetak) {
         ?>
@@ -32,7 +20,7 @@
     ?> -->
 
     <!-- --start modal -->
-    <div id="modal2" class="modal" style="z-index: 4">
+    <div id="modalagenda" class="modal" style="z-index: 4">
         <form id="agenda">
             <div class="modal-content center-align">
                 <h5>Buat Agenda Rekrutmen</h5>
@@ -86,11 +74,13 @@
     <!-- --end modal -->
 
     <!-- Floating Action Button -->
+    
     <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
-        <a class="btn-floating btn-large" onclick="setuju()">
+        <a class="btn-floating btn-large modal-trigger" href="#modalagenda">
             <i class="mdi-content-add-circle"></i>
         </a>
     </div>
+    
     <!-- Floating Action Button -->
 </div>
 <!--end container-->
@@ -99,15 +89,23 @@
 
 
 <script>
+var nim = sessionStorage.getItem('nim');
 $(document).ready(function(){
     
     
     $.ajax({
         url:'<?php echo base_url('agenda/get')?>',
-        type:'GET',
+        type:'POST',
+        data:{
+            nim:nim
+        },
         dataType:'json',
         success:(r)=>{
-            console.log(r);
+            let id_agenda = window.btoa(r.data[0].ID_AGENDA);
+            r.data.forEach(r => {
+                $("#agendawrap").append('<div class="col l3"><div class="card"><div class="card-image waves-effect waves-block waves-light"><img class="activator" src="'+r.FOTO+'"></div><div class="card-content"><span class="card-title activator grey-text text-darken-4">'+r.TB_AGENDA+'<i class="material-icons right">more_vert</i></span><p><a href="<?=base_url('presensi/index/')?>'+id_agenda+'">Masuk</a></p></div><div class="card-reveal"><span class="card-title grey-text text-darken-4">'+r.TB_AGENDA+'<i class="material-icons right">close</i></span><p>'+r.DESKRIPSI+'</p></div></div></div>')
+            });
+            
         }
     })
 })
@@ -130,18 +128,28 @@ $(document).ready(function(){
     }
 
     function setuju() {
-        $('.modal').fadeOut('slow');
-        $('#modal2').fadeIn('slow');
+        // $("#modal2").open();
+        // $('.modal').fadeOut('slow');
+        // $('#modal2').fadeIn('slow');
     }
 
     function klik_buat() {
-        var agenda = $("#agenda").serialize();
+        let tb_agenda = $("#tb_agenda").val();
+        let lembaga = $("#lembaga").val();
+        let deskripsi = $("#deskripsi").val();
         $.ajax({
             type: "POST",
-            url: "<?= base_url('agenda/setAgenda') ?>",
-            data: agenda,
+            url: "<?= base_url('agenda/set') ?>",
+            data: {
+                nim:nim,
+                tb_agenda:tb_agenda,
+                lembaga:lembaga,
+                deskripsi:deskripsi
+                
+            },
             dataType: "json",
             success: function(data) {
+                console.log(data);
                 Toast.fire({
                     type: 'success',
                     title: 'Rekrutmen berhasil disimpan'
