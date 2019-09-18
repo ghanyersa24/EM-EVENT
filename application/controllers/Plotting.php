@@ -88,10 +88,10 @@ class Plotting extends CI_Controller
 	public function updateDrop()
 	{
 		
-		// $id = r($this->input->post('id_agenda'));
-		// $nim = r($this->input->post('nim'));
-		$idagenda = 10;
-		$nim = '175150400111035';
+		$idagenda = r($this->input->post('id_agenda'));
+		$nim = r($this->input->post('nim'));
+		// $idagenda = 10;
+		// $nim = '175150400111035';
 		$data = array(
 			'STATUS' => 'SCREENING',
 			'ID_PILIHAN_DITERIMA' => 0
