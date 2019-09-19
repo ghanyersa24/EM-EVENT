@@ -74,7 +74,7 @@ var nim;
                 if(r.error==false){
                     r.data.PILIHAN.forEach(element => {
                     
-                    $("#plotdiv").append('<option value"'+element.ID_PILIHAN+'" >'+element.TB_PILIHAN+'</option>'); 
+                    $("#plotdiv").append('<option value="'+element.ID_PILIHAN+'" >'+element.TB_PILIHAN+'</option>'); 
                     $("#plotdiv").trigger('contentChanged');
                 });
             var foto = "https://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim=" + nim + "&key=MzIxZm90b3V5ZTEyMysyMDE4LTA4LTIxIDIxOjA2OjAw";
@@ -96,7 +96,8 @@ var nim;
 
 
     function klik_plotting() {
-        let id_pilihan = $("#plotdiv").val();
+        let id_pilihan = $("#plotdiv").children("option:selected").val();
+        console.log(id_pilihan);
         $.ajax({
             url:'<?php echo base_url('plotting/update')?>',
             type:'POST',

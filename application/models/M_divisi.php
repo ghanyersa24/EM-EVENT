@@ -14,6 +14,7 @@ class M_divisi extends CI_Model
 						  ->join('TB_BIODATA', 'TB_DAFTAR.NIM = TB_BIODATA.NIM')
 						  ->join('TB_JADWAL', 'TB_DAFTAR.ID_C_JADWAL = TB_JADWAL.ID_C_JADWAL')
 						  ->where(array('TB_DAFTAR.ID_PILIHAN' => $divisi, 'TB_DAFTAR.ID_AGENDA' => $idagenda))
+						  ->order_by('(TB_DAFTAR.STATUS = "DITERIMA") DESC','TB_JADWAL.JADWAL','NAMA_LENGKAP')
 						  ->get()->result_array();
 		return $query;
 	}

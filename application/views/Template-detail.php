@@ -55,7 +55,7 @@
                     <div id="beranda" class="row">
                         <div class="col m3">
                             <ul class="nav-2">
-                                <h5 class=" light-blue-text accent-4">REKRUTMEN KITA</h5>
+                                <h5 class=" light-blue-text accent-4"><?= $agenda ?></h5>
                                 <li><a href="<?= base_url("presensi/index/$idagenda") ?>" class="waves-effect waves-cyan"><i class="mdi-action-spellcheck"></i> Presensi</a>
                                 </li>
                                 <li><a href="<?= base_url("plotting/index/$idagenda") ?>" class="waves-effect waves-cyan"><i class="mdi-action-assignment-turned-in"></i> Plotingan</a>
@@ -81,9 +81,14 @@
                                 </li>
                             </ul>
                         </div>
-                        <?php
-                        $this->load->view($content);
-                        ?>
+                        <div class="col m7 s12">
+                            <h5><?= $title?></h5>
+                            <div class="divider"></div>
+                            <?php
+                            $this->load->view($content);
+                            ?>
+                        </div>
+
                     </div>
 
                     <div id="timeline" class="col s12">
