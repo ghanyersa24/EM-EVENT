@@ -213,22 +213,22 @@
                 <th width="5%">No.</th>
                 <th width="35%">Nama</th>
                 <th width="20%">Fakultas</th>
-                <th width="15%">Instagram</th>
+                <!-- <th width="15%">Instagram</th> -->
                 <th width="15%">Status</th>
                 <th width="10%">Action</th>
             </tr>
         </thead>
 
-        <tfoot>
-            <tr>
+        <tbody>
+            <!-- <tr>
                 <th>No.</th>
                 <th>Nama</th>
                 <th>Fakultas</th>
                 <th>Instagram</th>
                 <th>Status</th>
                 <th>Action</th>
-            </tr>
-        </tfoot>
+            </tr> -->
+        </tbody>
     </table>
 </div>
 <div id="modal1" class="modal" style="min-height: 80% !important;min-width:90%; z-index: 3">
@@ -983,25 +983,40 @@
 <script src="https://unpkg.com/materialize-stepper@3.0.0-beta.1.0.1/dist/js/mstepper.min.js"></script>  
 <script>
 var id_agenda = '<?= $idagenda;?>';
-var divisi = '<?= $idpilihan;?>';
+var id_pilihan = '<?= $idpilihan;?>';
 id_agenda = window.atob(id_agenda);
-divisi = window.atob(divisi);
+id_pilihan = window.atob(id_pilihan);
 var dataSet = [];
-
+const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    })
 $(document).ready(function() {
     $.ajax({
         url:'<?=base_url('divisi/get')?>',
         type:'POST',
         data:{
             id_agenda:id_agenda,
-            divisi:divisi
+            id_pilihan:id_pilihan
         },
         dataType:'JSON',
         success:(r)=>{
+            console.log(r);
+            dataset=r.data;
+            
             if(r.error==false){
-                
+                console.log(dataset);
                 $('#table').DataTable({
-                    data: dataSet
+                    data: dataSet,
+                    columns: [
+                        { data: 'NAMA_LENGKAP' },
+                        { data: 'FAKULTAS' },
+                        { data: 'ID_AGENDA' },
+                        { data: 'NIM' },
+                        { data: 'JADWAL' }
+                    ]
                 });
             } else{
                 Toast.fire({
