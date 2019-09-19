@@ -949,7 +949,7 @@
     })
     $(document).ready(function() {
         $('#table').DataTable({
-            "ajax": "<?= base_url('divisi/get') ?>",
+            "ajax": "<?= base_url('divisi/get/') ?>"+id_agenda+'/'+id_pilihan,
             "columns": [{
                     "data": "NO"
                 },

@@ -33,10 +33,10 @@ class Divisi extends CI_Controller
 		}
 	}
 
-	public function get()
+	public function get($idagenda,$divisi)
 	{
-		$divisi = r($this->input->post('id_pilihan'));
-		$idagenda = r($this->input->post('id_agenda'));
+		// $divisi = r($this->input->post('id_pilihan'));
+		// $idagenda = r($this->input->post('id_agenda'));
 		// $divisi = 20;
 		// $idagenda = 10;
 		$data = $this->M_divisi->get($divisi, $idagenda);
