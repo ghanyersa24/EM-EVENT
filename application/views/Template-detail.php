@@ -81,7 +81,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col m7 s12">
+                        <div class="col m8 s12">
                             <h5><?= $title?></h5>
                             <div class="divider"></div>
                             <?php

@@ -203,9 +203,9 @@
     }
 </style>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<div class="col m8 s12">
-    <h5>PUSKOMINFO</h5>
-    <div class="divider"></div>
+<div class="col s12">
+    <!-- <h5>PUSKOMINFO</h5>
+    <div class="divider"></div> -->
     <br>
     <table id="table" class="responsive-table display" cellspacing="0">
         <thead>
@@ -231,7 +231,7 @@
         </tbody>
     </table>
 </div>
-<div id="modal1" class="modal" style="min-height: 100vh !important;width:100vw; margin-top:-14vh; z-index: 999;">
+<div id="modal1" class="modal" style="min-height: 100vh !important;width:100vw; margin-top:-22vh; z-index: 999;">
     <div class="modal-content">
         <div class="container row z-depth-3 section grey lighten-3" style="padding-top:1em;padding-bottom:1em;margin-right:0px;margin-left:0px;">
             <img src="../img/logo2.png" class="formlogo" alt="">
@@ -941,6 +941,7 @@
     id_agenda = window.atob(id_agenda);
     id_pilihan = window.atob(id_pilihan);
     var dataSet = [];
+    var form = $(".modal-content").html();
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -1269,15 +1270,20 @@
     }
 
     function inputfocus() {
-        if ($("input,textarea").val()) {
-            $("input,textarea").focus();
+        
+        $("#modal1 input,#modal1 textarea").focus();
+      $("#modal1 input,#modal1 textarea").attr("readonly",true);
+      $("#modal1 input,.modal-content textarea").css("color","black");
+      $("#modal1").scrollTop(0);
+
             $("label").css({
                 transform: "translateY(-15px)",
                 "font-size": "12px"
             });
-        }
+        
     }
     $('#tutup').click(function() {
+        $(".modal-content").html(form);
         $('#modal1').fadeOut('slow');
     });
 </script>

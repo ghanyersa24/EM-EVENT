@@ -19,12 +19,16 @@ class Divisi extends CI_Controller
 	public function list($idagenda, $idpilihan)
 	{
 		$id = base64_decode($idagenda);
+		$idpil = base64_decode($idpilihan);
 		$check = $this->M_agenda->check($id);
-		if ($check) {
+		$divisi = $this->Master->get('TB_PILIHAN', array('ID_PILIHAN' => $idpil));
+		if (!empty($check) && !empty($divisi)) {
 			$data = array(
 				'content' => 'content/event/Divisi',
 				'idagenda' => $idagenda,
 				'idpilihan' => $idpilihan,
+				'agenda' => $check[0]['TB_AGENDA'],
+				'title' => $divisi[0]['TB_PILIHAN'],
 				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))
 			);
 			$this->load->view('Template-detail', $data);
@@ -33,7 +37,7 @@ class Divisi extends CI_Controller
 		}
 	}
 
-	public function get($idagenda,$divisi)
+	public function get($idagenda, $divisi)
 	{
 		// $divisi = r($this->input->post('id_pilihan'));
 		// $idagenda = r($this->input->post('id_agenda'));
@@ -50,7 +54,7 @@ class Divisi extends CI_Controller
 				)
 			);
 		} else {
-			$get= $this->parse($data);
+			$get = $this->parse($data);
 			echo json_encode(
 				array(
 					'status' => 200,
@@ -66,7 +70,7 @@ class Divisi extends CI_Controller
 	{
 		$nim = r($this->input->post('nim'));
 		$idagenda = r($this->input->post('id_agenda'));
-		$res = $this->Userbio->waiting($nim , $idagenda);
+		$res = $this->Userbio->waiting($nim, $idagenda);
 		if (empty($res)) {
 			echo json_encode(
 				array(
@@ -112,7 +116,7 @@ class Divisi extends CI_Controller
 					'FAKULTAS' => $key['FAKULTAS'],
 					'TIKET' => date('d F Y', strtotime($key['JADWAL'])),
 					'STATUS' => $key['STATUS'],
-					'ACTION' => '<a class="waves-effect waves-light btn-small" onclick="buka('.$key['NIM'].')" style="font-size: 30px"><i class="mdi-action-visibility"></i></a>'
+					'ACTION' => '<a class="waves-effect waves-light btn-small" onclick="buka(' . $key['NIM'] . ')" style="font-size: 30px"><i class="mdi-action-visibility"></i></a>'
 				);
 				array_push($res, $temp);
 				$i++;
