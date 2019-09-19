@@ -941,6 +941,7 @@
     id_agenda = window.atob(id_agenda);
     id_pilihan = window.atob(id_pilihan);
     var dataSet = [];
+    var form = $(".modal-content").html();
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -1282,6 +1283,7 @@
         
     }
     $('#tutup').click(function() {
+        $(".modal-content").html(form);
         $('#modal1').fadeOut('slow');
     });
 </script>
