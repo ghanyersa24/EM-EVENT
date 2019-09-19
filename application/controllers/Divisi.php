@@ -21,6 +21,7 @@ class Divisi extends CI_Controller
 			$data = array(
 				'content' => 'content/event/Divisi',
 				'idagenda' => $idagenda,
+				'idpilihan'=>$idpilihan,
 				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))
 			);
 			$this->load->view('Template-detail', $data);
@@ -31,8 +32,8 @@ class Divisi extends CI_Controller
 
 	public function get()
 	{
-		$divisi = r($this->input->post('divisi'));
-		$idagenda = r($this->input->post('id_agenda'));
+		$divisi = base64_decode(r($this->input->post('id_pilihan')));
+		$idagenda = base64_decode(r($this->input->post('id_agenda')));
 		$data = $this->M_divisi->get($divisi, $idagenda);
 		if (empty($data)) {
 			echo json_encode(
@@ -58,7 +59,7 @@ class Divisi extends CI_Controller
 	public function getBio()
 	{
 		$nim = r($this->input->post('nim'));
-		$idagenda = 3;
+		$idagenda = base64_decode(r($this->input->post('id_agenda')));
 		$res = $this->Userbio->waiting($nim, $idagenda);
 		if (empty($res)) {
 			echo json_encode(
