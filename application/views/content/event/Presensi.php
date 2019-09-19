@@ -102,6 +102,7 @@
             },
             dataType:'json',
             success:(r)=>{
+                console.log(r);
                 if(r.message == "Berhasil melakukan presensi"){
                     Toast.fire({
                         type: 'success',
