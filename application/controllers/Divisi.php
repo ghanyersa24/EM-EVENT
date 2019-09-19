@@ -21,6 +21,7 @@ class Divisi extends CI_Controller
 		$id = base64_decode($idagenda);
 		$idpil = base64_decode($idpilihan);
 		$check = $this->M_agenda->check($id);
+		$nim = $this->session->userdata('nim');
 		$divisi = $this->Master->get('TB_PILIHAN', array('ID_PILIHAN' => $idpil));
 		if (!empty($check) && !empty($divisi)) {
 			$data = array(
@@ -29,7 +30,9 @@ class Divisi extends CI_Controller
 				'idpilihan' => $idpilihan,
 				'agenda' => $check[0]['TB_AGENDA'],
 				'title' => $divisi[0]['TB_PILIHAN'],
-				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))
+				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id)),
+				'listagenda' => $this->M_agenda->getAgenda($nim)
+
 			);
 			$this->load->view('Template-detail', $data);
 		} else {

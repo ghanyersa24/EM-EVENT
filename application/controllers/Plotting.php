@@ -8,9 +8,10 @@ class Plotting extends CI_Controller
 	{
 		parent::__construct();
 		if (!$this->session->userdata('logged')) {
-            redirect('logout');
-        }
+			redirect('logout');
+		}
 		$this->load->helper('Parsing');
+		$this->load->helper('text');
 		$this->load->Model('Master');
 		$this->load->Model('M_plotting');
 		$this->load->Model('M_agenda');
@@ -18,6 +19,7 @@ class Plotting extends CI_Controller
 	public function index($idagenda)
 	{
 		$id = base64_decode($idagenda);
+		$nim = $this->session->userdata('nim');
 		$check = $this->M_agenda->check($id);
 		if (!empty($check)) {
 			$data = array(
@@ -25,7 +27,8 @@ class Plotting extends CI_Controller
 				'idagenda' => $idagenda,
 				'agenda' => $check[0]['TB_AGENDA'],
 				'title' => 'PLOTTING',
-				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))
+				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id)),
+				'listagenda' => $this->M_agenda->getAgenda($nim)
 			);
 			$this->load->view('Template-detail', $data);
 		} else {
@@ -92,7 +95,7 @@ class Plotting extends CI_Controller
 
 	public function updateDrop()
 	{
-		
+
 		$idagenda = r($this->input->post('id_agenda'));
 		$nim = r($this->input->post('nim'));
 		// $idagenda = 10;
@@ -105,24 +108,36 @@ class Plotting extends CI_Controller
 		if ($check) {
 			$data = array(
 				'error' => false,
-				'message' => 'Berhasil diterima',
+				'message' => 'Data Berhasil di Drop out',
 				'data' => $data
 			);
 		} else {
 			$data = array(
 				'error' => true,
-				'message' => 'Tidak berhasil diterima',
+				'message' => 'Data gagal di Drop out',
 				'data' => $check
 			);
 		}
 		echo json_encode($data);
 	}
 
-	public function dropout()
+	public function dropout($idagenda)
 	{
-		$data = array(
-			'content' => 'content/event/Dropout'
-		);
-		$this->load->view('Template-detail', $data);
+		$id = base64_decode($idagenda);
+		$nim = $this->session->userdata('nim');
+		$check = $this->M_agenda->check($id);
+		if (!empty($check)) {
+			$data = array(
+				'content' => 'content/event/Dropout',
+				'idagenda' => $idagenda,
+				'agenda' => $check[0]['TB_AGENDA'],
+				'title' => 'DROP OUT',
+				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id)),
+				'listagenda' => $this->M_agenda->getAgenda($nim)
+			);
+			$this->load->view('Template-detail', $data);
+		} else {
+			redirect('agenda');
+		}
 	}
 }

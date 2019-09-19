@@ -8,8 +8,8 @@ class Agenda extends CI_Controller
 	{
 		parent::__construct();
 		if (!$this->session->userdata('logged')) {
-            redirect('logout');
-        }
+			redirect('logout');
+		}
 		$this->load->model('M_agenda');
 		$this->load->model('Master');
 		$this->load->helper('text');
@@ -17,8 +17,10 @@ class Agenda extends CI_Controller
 	}
 	public function index()
 	{
+		$nim = $this->session->userdata('nim');
 		$data = array(
-			'content' => 'content/Dashboard'
+			'content' => 'content/Dashboard',
+			'listagenda'=> $this->M_agenda->getAgenda($nim)
 		);
 		$this->load->view('Template', $data);
 	}

@@ -45,9 +45,50 @@
     <!-- START MAIN -->
     <section id="">
         <div class="wrapper">
-            <?php
-            include('layout/Sidenav.php');
-            ?>
+            <!-- START LEFT SIDEBAR NAV DONE-->
+            <aside id="left-sidebar-nav">
+                <ul id="slide-out" class="side-nav leftside-navigation">
+                    <li class="user-details cyan darken-2">
+                        <div class="row">
+                            <div class="col col s4 m4 l4">
+                                <img src="<?= base_url('assets/images/') ?>avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                            </div>
+                            <div class="col col s8 m8 l8">
+                                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">Ghany Abdillah Ersa</a>
+                                <p class="user-roal">Administrator</p>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- <li><a href="#"><i class="mdi-action-face-unlock"></i> Profile</a>
+                    </li> -->
+                    <li class="bold"><a href="<?= base_url('agenda') ?>" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li class="no-padding">
+                        <ul class="collapsible collapsible-accordion">
+                            <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-view-carousel"></i> My Event</a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <?php
+                                        foreach ($listagenda as $cetak) {
+                                            ?>
+                                            <li>
+                                                <a href="<?= base_url('presensi/index/' . base64_encode($cetak["ID_AGENDA"])) ?>"><?= character_limiter($cetak['TB_AGENDA'], 10); ?></a>
+                                            </li>
+                                        <?php
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="<?= base_url('logout') ?>"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
+                    </li>
+                </ul>
+                <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light cyan" style="margin-top:-0.5vh"><i class="mdi-navigation-menu"></i></a>
+            </aside>
+            <!-- END LEFT SIDEBAR NAV-->
             <section id="content">
                 <br>
                 <!--start container-->
@@ -77,12 +118,12 @@
                                 </li>
 
                                 <div class="divider"></div>
-                                <li><a href="<?= base_url('plotting/dropout') ?>"><i class="mdi-hardware-keyboard-tab"></i> Drop Out</a>
+                                <li><a href="<?= base_url("plotting/dropout/$idagenda") ?>"><i class="mdi-hardware-keyboard-tab"></i> Drop Out</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="col m8 s12">
-                            <h5><?= $title?></h5>
+                            <h5><?= $title ?></h5>
                             <div class="divider"></div>
                             <?php
                             $this->load->view($content);

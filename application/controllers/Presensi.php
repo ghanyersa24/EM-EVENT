@@ -10,6 +10,7 @@ class Presensi extends CI_Controller
 			redirect('logout');
 		}
 		$this->load->helper('Parsing');
+		$this->load->helper('text');
 		$this->load->Model('Master');
 		$this->load->Model('M_presensi');
 		$this->load->Model('M_agenda');
@@ -18,6 +19,7 @@ class Presensi extends CI_Controller
 	{
 
 		$id = base64_decode($idagenda);
+		$nim = $this->session->userdata('nim');
 		$check = $this->M_agenda->check($id);
 		if (!empty($check)) {
 			$data = array(
@@ -25,8 +27,10 @@ class Presensi extends CI_Controller
 				'idagenda' => $idagenda,
 				'agenda' => $check[0]['TB_AGENDA'],
 				'title' => 'PRESENSI',
-				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))
+				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id)),
+				'listagenda' => $this->M_agenda->getAgenda($nim)
 			);
+			// var_dump($data);
 			$this->load->view('Template-detail', $data);
 		} else {
 			redirect('agenda');

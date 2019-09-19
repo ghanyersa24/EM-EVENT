@@ -11,12 +11,14 @@ class Statistik extends CI_Controller
 		// }
 		$this->load->helper('Parsing');
 		$this->load->model('Master');
+		$this->load->helper('text');
 		$this->load->model('M_agenda');
 		$this->load->model('M_statistik');
 	}
 	public function index($idagenda)
 	{
 		$id = base64_decode($idagenda);
+		$nim = $this->session->userdata('nim');
 		$check = $this->M_agenda->check($id);
 		if (!empty($check)) {
 			$data = array(
@@ -24,7 +26,8 @@ class Statistik extends CI_Controller
 				'idagenda' => $idagenda,
 				'agenda' => $check[0]['TB_AGENDA'],
 				'title' => 'DATA STATISTIK',
-				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))
+				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id)),
+				'listagenda' => $this->M_agenda->getAgenda($nim)
 			);
 			$this->load->view('Template-detail', $data);
 		} else {
