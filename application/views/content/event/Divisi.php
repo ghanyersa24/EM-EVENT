@@ -1269,13 +1269,17 @@
     }
 
     function inputfocus() {
-        if ($("input,textarea").val()) {
-            $("input,textarea").focus();
+        
+        $("#modal1 input,#modal1 textarea").focus();
+      $("#modal1 input,#modal1 textarea").attr("readonly",true);
+      $("#modal1 input,.modal-content textarea").css("color","black");
+      $("#modal1").scrollTop(0);
+
             $("label").css({
                 transform: "translateY(-15px)",
                 "font-size": "12px"
             });
-        }
+        
     }
     $('#tutup').click(function() {
         $('#modal1').fadeOut('slow');
