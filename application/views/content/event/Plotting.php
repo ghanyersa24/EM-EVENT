@@ -1,12 +1,10 @@
-<div class="col m7 s12">
-    <h5>Plotting</h5>
-    <div class="divider"></div>
-    <div class="card center-align">
-        <br>
-        <span class="card-title  grey-text text-darken-4 mt-3">Pemilihan Staf Diterima</span>
-        <form id="plottingform"action="">
+<br>
+<div class="card center-align">
+    <br>
+    <span class="card-title  grey-text text-darken-4 mt-3">Pemilihan Staf Diterima</span>
+    <form id="plottingform" action="">
         <div class="row mt-3">
-        
+
             <div class="input-field col s8 m6 offset-s2 offset-m3">
                 <input id="nim" type="number" class="validate">
                 <label for="nim" class="center-align">NIM</label>
@@ -15,9 +13,9 @@
         <button type="submit" class="btn cyan waves-effect waves-light mb-3 modal-trigger" data-target="modal1" type="submit" name="action" onclick="plotting()">Submit
             <i class="mdi-content-send right"></i>
         </button>
-        </form>
-    </div>
+    </form>
 </div>
+
 <div id="modal1" class="modal" style="min-height: 80% !important">
     <div class="modal-content center-align">
         <h5>Staf Muda EM UB 2019</h5>
@@ -40,87 +38,107 @@
 </div>
 
 <script>
-var id_agenda = '<?= $idagenda;?>';
+    var id_agenda = '<?= $idagenda; ?>';
     id_agenda = window.atob(id_agenda);
     const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        })
-var nim;
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    })
+    var nim;
 
-    $("#plottingform").on("submit",function(){
+    $("#plottingform").on("submit", function() {
         event.preventDefault();
         plotting();
     })
 
     function plotting() {
         nim = $("#nim").val();
-        $("#plotdiv").on('contentChanged',function(){
+        $("#plotdiv").on('contentChanged', function() {
             $(this).material_select();
         })
-        
         $.ajax({
-            
-            url:'<?php echo base_url('plotting/get')?>',
-            type:'POST',
-            data:{
-                id_agenda:id_agenda,
-                nim:nim
+            url: '<?php echo base_url('plotting/get') ?>',
+            type: 'POST',
+            data: {
+                id_agenda: id_agenda,
+                nim: nim
             },
-            dataType:'json',
-            success:(r)=>{     
-                if(r.error==false){
-                    r.data.PILIHAN.forEach(element => {
-                    
-                    $("#plotdiv").append('<option value="'+element.ID_PILIHAN+'" >'+element.TB_PILIHAN+'</option>'); 
-                    $("#plotdiv").trigger('contentChanged');
-                });
-            var foto = "https://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim=" + nim + "&key=MzIxZm90b3V5ZTEyMysyMDE4LTA4LTIxIDIxOjA2OjAw";
-            $('#foto').attr('src', foto);
-            $('#nama').text(r.data.NAMA_LENGKAP);
-                }else{
+            dataType: 'json',
+            success: (r) => {
+                if (r.error == false) {
+                    if (r.data.STATUS == 'SCREENING') {
+                        r.data.PILIHAN.forEach(element => {
+                            $("#plotdiv").append('<option value="' + element.ID_PILIHAN + '" >' + element.TB_PILIHAN + '</option>');
+                            $("#plotdiv").trigger('contentChanged');
+                        });
+                        var foto = "https://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim=" + nim + "&key=MzIxZm90b3V5ZTEyMysyMDE4LTA4LTIxIDIxOjA2OjAw";
+                        $('#foto').attr('src', foto);
+                        $('#nama').text(r.data.NAMA_LENGKAP);
+                    } else if (r.data.STATUS == 'DITERIMA') {
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Calon sudah diterima di ' + r.data.TB_PILIHAN
+                        })
+                        $("#modal1").fadeOut();
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Calon belum melakukan interview'
+                        })
+                        $("#modal1").fadeOut();
+                    }
+                } else {
                     Toast.fire({
                         type: 'error',
-                        title: 'NIM tidak terdaftar'
+                        title: 'Calon tidak terdaftar'
                     })
                     $("#modal1").fadeOut();
-                }          
-                       
-                
+                }
+
+
             }
         })
-        
+
     }
 
 
     function klik_plotting() {
         let id_pilihan = $("#plotdiv").children("option:selected").val();
-        console.log(id_pilihan);
-        $.ajax({
-            url:'<?php echo base_url('plotting/update')?>',
-            type:'POST',
-            data:{
-                id_agenda:id_agenda,
-                nim:nim,
-                id_pilihan:id_pilihan
-            },
-            dataType:'json',
-            success:(r)=>{
-                
-                if(r.error == false){
-                    Toast.fire({
-                        type: 'success',
-                        title: 'Plotting Berhasil Dilakukan'
-                    })
-                } else{
-                    Toast.fire({
-                        type: 'error',
-                        title: 'Plotting Gagal Dilakukan'
-                    })
+        if (id_pilihan !== "") {
+
+            $.ajax({
+                url: '<?php echo base_url('plotting/update') ?>',
+                type: 'POST',
+                data: {
+                    id_agenda: id_agenda,
+                    nim: nim,
+                    id_pilihan: id_pilihan
+                },
+                dataType: 'json',
+                success: (r) => {
+
+                    if (r.error == false) {
+                        Toast.fire({
+                            type: 'success',
+                            title: 'Plotting Berhasil Dilakukan'
+                        })
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Plotting Gagal Dilakukan'
+                        })
+                    }
                 }
-            }
-        })
+            })
+        } else {
+            Toast.fire({
+                type: 'error',
+                title: 'Pilihan tidak boleh kosong'
+            })
+            $("#modal1").fadeOut();
+        }
+
     }
 </script>

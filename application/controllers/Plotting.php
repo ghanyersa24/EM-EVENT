@@ -19,10 +19,12 @@ class Plotting extends CI_Controller
 	{
 		$id = base64_decode($idagenda);
 		$check = $this->M_agenda->check($id);
-		if ($check) {
+		if (!empty($check)) {
 			$data = array(
 				'content' => 'content/event/Plotting',
 				'idagenda' => $idagenda,
+				'agenda' => $check[0]['TB_AGENDA'],
+				'title' => 'PLOTTING',
 				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))
 			);
 			$this->load->view('Template-detail', $data);

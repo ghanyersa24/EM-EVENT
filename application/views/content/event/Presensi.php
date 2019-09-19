@@ -1,3 +1,4 @@
+<br>
 <div class="card center-align">
     <br>
     <span class="card-title  grey-text text-darken-4 mt-3">Screening / Validation</span>
@@ -87,7 +88,7 @@
                 } else {
                     Toast.fire({
                         type: 'error',
-                        title: 'NIM tidak terdaftar'
+                        title: 'Calon tidak terdaftar'
                     })
                     $("#modal1").fadeOut();
                 }
