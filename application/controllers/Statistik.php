@@ -7,21 +7,23 @@ class Statistik extends CI_Controller
 	{
 		parent::__construct();
 		// if (!$this->session->userdata('logged')) {
-        //     redirect('logout');
-        // }
+		//     redirect('logout');
+		// }
 		$this->load->helper('Parsing');
 		$this->load->model('Master');
 		$this->load->model('M_agenda');
 		$this->load->model('M_statistik');
 	}
-	public function index($idencode)
+	public function index($idagenda)
 	{
-		$id = base64_decode($idencode);
+		$id = base64_decode($idagenda);
 		$check = $this->M_agenda->check($id);
-		if ($check) {
+		if (!empty($check)) {
 			$data = array(
 				'content' => 'content/event/Statistik',
-				'idagenda' => $idencode,
+				'idagenda' => $idagenda,
+				'agenda' => $check[0]['TB_AGENDA'],
+				'title' => 'DATA STATISTIK',
 				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))
 			);
 			$this->load->view('Template-detail', $data);
@@ -45,7 +47,7 @@ class Statistik extends CI_Controller
 			);
 		} else {
 			$send = array();
-			$i=0;
+			$i = 0;
 			// foreach ($data as $temp) {
 			// 	if ($data[$i]["STATUS"] == 'DAFTAR') {
 			// 		$send["DAFTAR"][]=$temp;

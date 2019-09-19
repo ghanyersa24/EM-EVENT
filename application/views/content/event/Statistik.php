@@ -16,63 +16,59 @@
     </div>
 </div> -->
 
-<div class="col s12 m8">
-    <h5>Data Statistik</h5>
-    <div class="divider"></div>
-    <div class="card">
-        <div class="card-move-up waves-effect waves-block waves-light">
-            <div class="move-up cyan darken-1">
-                <div>
-                    <span class="chart-title white-text">Pendaftar Kegiatan</span>
-                    <div class="chart-revenue cyan darken-2 white-text">
-                        <!-- <p class="chart-revenue-total">$4,500.85</p>
+<div class="card">
+    <div class="card-move-up waves-effect waves-block waves-light">
+        <div class="move-up cyan darken-1">
+            <div>
+                <span class="chart-title white-text">Pendaftar Kegiatan</span>
+                <div class="chart-revenue cyan darken-2 white-text">
+                    <!-- <p class="chart-revenue-total">$4,500.85</p>
                         <p class="chart-revenue-per"><i class="mdi-navigation-arrow-drop-up"></i> 21.80 %</p> -->
-                    </div>
-                </div>
-                <div class="trending-line-chart-wrapper">
-                    <canvas id="trending-line-chart" height="332" width="1430" style="width: 715px; height: 166px;"></canvas>
                 </div>
             </div>
+            <div class="trending-line-chart-wrapper">
+                <canvas id="trending-line-chart" height="332" width="1430" style="width: 715px; height: 166px;"></canvas>
+            </div>
         </div>
-        <div class="card-content">
-            <a class="btn-floating btn-move-up waves-effect waves-light darken-2 right"><i class="mdi-content-add activator"></i></a>
-        </div>
-
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Detail<i class="mdi-navigation-close right"></i></span>
-            <table class="responsive-table">
-                <thead>
-                    <tr>
-                        <th data-field="id">ID</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-
     </div>
+    <div class="card-content">
+        <a class="btn-floating btn-move-up waves-effect waves-light darken-2 right"><i class="mdi-content-add activator"></i></a>
+    </div>
+
+    <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">Detail<i class="mdi-navigation-close right"></i></span>
+        <table class="responsive-table">
+            <thead>
+                <tr>
+                    <th data-field="id">ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 </div>
 
 
 <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/chartjs/chart.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/chartjs/chart-script.js"></script>
 <script>
-var id_agenda = '<?= $idagenda;?>';
-id_agenda = window.atob(id_agenda);
-    $(document).ready(function(){
+    var id_agenda = '<?= $idagenda; ?>';
+    id_agenda = window.atob(id_agenda);
+    $(document).ready(function() {
         $.ajax({
-            url:'<?php echo base_url('statistik/get')?>',
-            type:'POST',
-            data:{
-                id_agenda : id_agenda
+            url: '<?php echo base_url('statistik/get') ?>',
+            type: 'POST',
+            data: {
+                id_agenda: id_agenda
             },
-            dataType:'json',
-            success:(r)=>{
+            dataType: 'json',
+            success: (r) => {
                 console.log(r);
             }
         })
