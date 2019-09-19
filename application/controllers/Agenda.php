@@ -7,6 +7,9 @@ class Agenda extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		if (!$this->session->userdata('logged')) {
+            redirect('logout');
+        }
 		$this->load->model('M_agenda');
 		$this->load->model('Master');
 		$this->load->helper('text');
@@ -57,7 +60,7 @@ class Agenda extends CI_Controller
 	}
 	public function get()
 	{
-		$nim = r($this->input->post('nim'));
+		$nim = $this->session->userdata('nim');
 		$data = $this->M_agenda->getAgenda($nim);
 		if (empty($data)) {
 			echo json_encode(

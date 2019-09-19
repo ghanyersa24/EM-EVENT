@@ -36,7 +36,7 @@
                         </ul>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
+                    <li><a href="<?=base_url('logout')?>"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
                     </li>
                 </ul>
                 <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light cyan" style="margin-top:-0.5vh"><i class="mdi-navigation-menu"></i></a>

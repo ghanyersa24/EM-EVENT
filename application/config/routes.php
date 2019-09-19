@@ -72,6 +72,6 @@ $route['getBio/(:any)/(:any)'] = 'biodata/getDataBiodata/$1/$2';
 // $route['divisi/(:any)/(:any)'] = 'divisi/list/$1/$2';
 // --------------------ADMIN---------------------------
 
-$route['default_controller'] = 'Dashboard';
+$route['default_controller'] = 'agenda';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

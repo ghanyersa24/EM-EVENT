@@ -9,7 +9,7 @@ class M_divisi extends CI_Model
 	}
 	public function get($divisi, $idagenda)
 	{
-		$query = $this->db->select("NAMA_LENGKAP, TB_DAFTAR.NIM, FAKULTAS, TB_DAFTAR.ID_AGENDA, TB_JADWAL.JADWAL")
+		$query = $this->db->select("NAMA_LENGKAP, TB_DAFTAR.NIM, TB_DAFTAR.STATUS ,FAKULTAS, TB_DAFTAR.ID_AGENDA, TB_JADWAL.JADWAL")
 						  ->from('TB_DAFTAR')
 						  ->join('TB_BIODATA', 'TB_DAFTAR.NIM = TB_BIODATA.NIM')
 						  ->join('TB_JADWAL', 'TB_DAFTAR.ID_C_JADWAL = TB_JADWAL.ID_C_JADWAL')

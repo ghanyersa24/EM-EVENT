@@ -6,6 +6,9 @@ class Pilihan extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		if (!$this->session->userdata('logged')) {
+            redirect('logout');
+        }
 		$this->load->model('M_pengurus');
 		$this->load->model('M_agenda');
 		$this->load->model('Master');

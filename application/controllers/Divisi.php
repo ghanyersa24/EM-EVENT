@@ -6,6 +6,9 @@ class Divisi extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		if (!$this->session->userdata('logged')) {
+			redirect('logout');
+		}
 		$this->load->model('M_divisi');
 		$this->load->model('M_agenda');
 		$this->load->model('Master');
@@ -21,7 +24,7 @@ class Divisi extends CI_Controller
 			$data = array(
 				'content' => 'content/event/Divisi',
 				'idagenda' => $idagenda,
-				'idpilihan'=>$idpilihan,
+				'idpilihan' => $idpilihan,
 				'divisi' => $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))
 			);
 			$this->load->view('Template-detail', $data);
@@ -32,8 +35,10 @@ class Divisi extends CI_Controller
 
 	public function get()
 	{
-		$divisi = r($this->input->post('id_pilihan'));
-		$idagenda = r($this->input->post('id_agenda'));
+		// $divisi = r($this->input->post('id_pilihan'));
+		// $idagenda = r($this->input->post('id_agenda'));
+		$divisi = 20;
+		$idagenda = 10;
 		$data = $this->M_divisi->get($divisi, $idagenda);
 		if (empty($data)) {
 			echo json_encode(
@@ -45,12 +50,13 @@ class Divisi extends CI_Controller
 				)
 			);
 		} else {
+			$get= $this->parse($data);
 			echo json_encode(
 				array(
 					'status' => 200,
 					'error' => false,
 					'message' => 'data agenda berhasil diterima',
-					'data' => $data
+					'data' => $get
 				)
 			);
 		}
@@ -59,8 +65,8 @@ class Divisi extends CI_Controller
 	public function getBio()
 	{
 		$nim = r($this->input->post('nim'));
-		$idagenda = base64_decode(r($this->input->post('id_agenda')));
-		$res = $this->Userbio->waiting($nim, $idagenda);
+		$idagenda = r($this->input->post('id_agenda'));
+		$res = $this->Userbio->waiting($nim , $idagenda);
 		if (empty($res)) {
 			echo json_encode(
 				array(
@@ -92,6 +98,28 @@ class Divisi extends CI_Controller
 					'data' => $res
 				)
 			);
+		}
+	}
+	public function parse($data)
+	{
+		if (!empty($data)) {
+			$res = array();
+			$i = 1;
+			foreach ($data as $key) {
+				$temp = array(
+					'NO' => $i,
+					'NAMA' => $key['NAMA_LENGKAP'],
+					'FAKULTAS' => $key['FAKULTAS'],
+					'TIKET' => date('d F Y', strtotime($key['JADWAL'])),
+					'STATUS' => $key['STATUS'],
+					'ACTION' => '<a class="waves-effect waves-light btn-small" onclick="buka('.$key['NIM'].')" style="font-size: 30px"><i class="mdi-action-visibility"></i></a>'
+				);
+				array_push($res, $temp);
+				$i++;
+			}
+			return $res;
+		} else {
+			return $data;
 		}
 	}
 }

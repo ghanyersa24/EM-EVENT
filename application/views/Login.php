@@ -19,6 +19,8 @@
   <link href="<?= base_url('assets/css/') ?>custom/custom-style.css" type="text/css" rel="stylesheet" media="screen,projection">
   <link href="<?= base_url('assets/js/') ?>plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
 </head>
 
 <body class="cyan">
@@ -70,30 +72,41 @@
   </div>
 
   <script type="text/javascript" src="<?= base_url('assets/js/') ?>materialize.js"></script>
-  
+
   <script>
-    function login(){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    })
+
+    function login() {
       event.preventDefault();
       let nim = $('input[name="nim"]').val();
       let password = $('input[name="password"]').val();
       $.ajax({
-        url:
-        "https://em.ub.ac.id/redirect/login/loginApps/?nim=" +
-        nim +
-        "&password=" +
-        password +
-        "",
+        url: "<?= base_url('login/login') ?>",
         type: 'POST',
-        dataType:'json',
-        success:(r)=>{
-          if(r.status==true){
-            sessionStorage.setItem("nim",r.nim);
-            sessionStorage.setItem("nama",r.nama);
-            sessionStorage.setItem("fak",r.fak);
-            sessionStorage.setItem("prodi",r.prodi);
-            sessionStorage.setItem("jurusan",r.jurusan);
-            sessionStorage.setItem("foto",r.foto);
-            window.location.replace('<?=base_url('agenda')?>');
+        data: {
+          username: nim,
+          password: password
+        },
+        dataType: 'json',
+        success: (r) => {
+          if (r.error == false) {
+            Toast.fire({
+              type: 'success',
+              title: r.message
+            })
+            setTimeout(function() {
+              location.reload();
+            }, 1000);
+          }else{
+            Toast.fire({
+              type: 'error',
+              title: r.message
+            })
           }
         }
       })
