@@ -14,7 +14,7 @@
                     <ul class="tabs tab-demo-active cyan">
                         <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#beranda">Beranda</a>
                         </li>
-                        <li class="tab col s3"><a class="white-text waves-effect waves-light " href="#timeline">Timeline</a>
+                        <li class="tab col s3"><a class="white-text waves-effect waves-light " href="#pilihan">Pilihan</a>
                         </li>
                         <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#pengurus">Pengurus</a>
                         </li>

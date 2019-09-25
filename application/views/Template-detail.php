@@ -131,9 +131,9 @@
 
                     </div>
 
-                    <div id="timeline" class="col s12">
+                    <div id="pilihan" class="col s12">
                         <?php
-                        include('content/event/Timeline.php');
+                        include('content/event/Pilihan.php');
                         ?>
                     </div>
 
