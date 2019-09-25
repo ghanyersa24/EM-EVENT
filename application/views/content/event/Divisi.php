@@ -950,7 +950,8 @@
     })
     $(document).ready(function() {
         $('#table').DataTable({
-            "ajax": "<?= base_url('divisi/get/') ?>"+id_agenda+'/'+id_pilihan,
+            "serverSide": false,
+            "ajax": "<?= base_url('divisi/get/') ?>" + id_agenda + '/' + id_pilihan,
             "columns": [{
                     "data": "NO"
                 },
@@ -961,7 +962,7 @@
                     "data": "FAKULTAS"
                 },
                 {
-                    "data": "TIKET"
+                    "data": "JADWAL"
                 },
                 {
                     "data": "STATUS"
@@ -1270,17 +1271,17 @@
     }
 
     function inputfocus() {
-        
-        $("#modal1 input,#modal1 textarea").focus();
-      $("#modal1 input,#modal1 textarea").attr("readonly",true);
-      $("#modal1 input,.modal-content textarea").css("color","black");
-      $("#modal1").scrollTop(0);
 
-            $("label").css({
-                transform: "translateY(-15px)",
-                "font-size": "12px"
-            });
-        
+        $("#modal1 input,#modal1 textarea").focus();
+        $("#modal1 input,#modal1 textarea").attr("readonly", true);
+        $("#modal1 input,.modal-content textarea").css("color", "black");
+        $("#modal1").scrollTop(0);
+
+        $("label").css({
+            transform: "translateY(-15px)",
+            "font-size": "12px"
+        });
+
     }
     $('#tutup').click(function() {
         $(".modal-content").html(form);

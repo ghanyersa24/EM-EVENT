@@ -20,25 +20,40 @@ class Agenda extends CI_Controller
 		$nim = $this->session->userdata('nim');
 		$data = array(
 			'content' => 'content/Dashboard',
-			'listagenda'=> $this->M_agenda->getAgenda($nim)
+			'listagenda' => $this->M_agenda->getAgenda($nim)
 		);
 		$this->load->view('Template', $data);
 	}
 
 	public function set()
 	{
-		$nim = r($this->input->post('nim'));
+		$nim = $this->session->userdata('nim');
+		$gambar = r($this->input->POST('foto'));
+		$buka = r($this->input->POST('tgl_buka'));
+		$tutup = r($this->input->POST('tgl_tutup'));
+		$pengumuman = r($this->input->POST('tgl_pengumuman'));
+
+		if ($buka == "")
+			$buka = date('Y-m-d H:m', strtotime($buka));
+
+		if ($tutup == "")
+			$tutup = date('Y-m-d H:m', strtotime($tutup));
+
+		if ($pengumuman == "")
+			$pengumuman = date('Y-m-d H:m', strtotime($pengumuman));
+
+		if ($gambar == "")
+			$gambar = 'https://i.postimg.cc/MHs6pZsF/em-event.jpg';
 		$data = array(
-			"ID_AGENDA" => "",
 			"NIM" => $nim,
 			"TB_AGENDA" => r($this->input->POST('tb_agenda')),
 			"LEMBAGA" => r($this->input->POST('lembaga')),
 			"DESKRIPSI" => r($this->input->POST('deskripsi')),
-			"TGL_BUKA" => r($this->input->POST('tgl_buka')),
-			"TGL_TUTUP" => r($this->input->POST('tgl_tutup')),
-			"TGL_PENGUMUMAN" => r($this->input->POST('tgl_pengumuman')),
+			"TGL_BUKA" => $buka,
+			"TGL_TUTUP" => $tutup,
+			"TGL_PENGUMUMAN" => $pengumuman,
 			"TB_PILIHAN_PENGUMUMAN" => r($this->input->POST('tb_pilihan_pengumuman')),
-			"FOTO" => r($this->input->POST('foto')),
+			"FOTO" => $gambar,
 			"STATUS" => 'DRAFT',
 			"YOUTUBE" => r($this->input->POST('yt')),
 			"HALAMAN" => r($this->input->POST('halaman')),
@@ -46,11 +61,31 @@ class Agenda extends CI_Controller
 		);
 		$check = $this->Master->insert('TB_AGENDA', $data);
 		if ($check) {
-			$data = array(
-				'status' => true,
-				'message' => 'Data berhasil diinput',
-				'data' => $data
+			$get = $this->Master->get('TB_AGENDA', $data);
+			$get = $get[count($get) - 1];
+			$data2 = array(
+				'ID_AGENDA' => $get['ID_AGENDA'],
+				'TB_PILIHAN' => 'KETUA REKRUTMEN',
+				'HAK' => 'BPI'
 			);
+			$agenda = $this->Master->insert('TB_PILIHAN', $data2);
+			if ($agenda) {
+				$get = $this->Master->get('TB_PILIHAN', $data2);
+				$get = $get[count($get) - 1];
+				$data3 = array(
+					'ID_PILIHAN' => $get['ID_PILIHAN'],
+					'NIM' => $nim,
+					'NAMA' => $this->session->userdata('nama')
+				);
+				$pilihan = $this->Master->insert('TB_PENGURUS', $data3);
+				if ($pilihan) {
+					$data = array(
+						'status' => true,
+						'message' => 'Data berhasil diinput',
+						'data' => $data
+					);
+				}
+			}
 		} else {
 			$data = array(
 				'status' => false,

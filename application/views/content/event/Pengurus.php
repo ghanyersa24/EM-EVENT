@@ -2,65 +2,44 @@
     <h5>Pengurus Inti</h5>
     <div class="divider"></div>
     <br>
-    <ul class="collection" style="border: none">
-        <li class="collection-item avatar">
-            <img src="https://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim=165150401111060&key=MzIxZm90b3V5ZTEyMysyMDE4LTA4LTIxIDIxOjA2OjAw" alt="" class="circle">
-            <span class="title">Ghany Abdillah Ersa</span>
-            <p>Ketua Panitia </p>
-            <a href="#!" onclick="ubah('165150401111060','111')" class="secondary-content tooltipped" data-position="right" data-tooltip="Ubah Pengurus"><i class="mdi-content-create"></i></a>
-
-        </li>
-        <li class="collection-item avatar">
-            <i class="mdi-action-account-circle circle"></i>
-            <span class="title">Nama</span>
-            <p>Jabatan</p>
-            <a href="#!" onclick="ubah('165150401111060','111')" class="secondary-content tooltipped" data-position="right" data-tooltip="Ubah Pengurus"><i class="mdi-content-create"></i></a>
-
-        </li>
+    <ul class="collection" style="border: none" id="listinti">
     </ul>
     <br><br>
     <h5>Pengurus Harian</h5>
     <div class="divider"></div>
     <br>
-    <ul class="collection" style="border: none">
-        <li class="collection-item avatar">
-            <i class="mdi-action-account-circle circle green"></i>
-            <span class="title">Nama</span>
-            <p>Jabatan</p>
-            <a href="#!" onclick="ubah('165150401111060','111')" class="secondary-content tooltipped" data-position="right" data-tooltip="Ubah Pengurus"><i class="mdi-content-create"></i></a>
-
-
-        </li>
-        <li class="collection-item avatar">
-            <i class="mdi-action-account-circle circle red"></i>
-            <span class="title">Nama</span>
-            <p>Jabatan</p>
-            <a href="#!" onclick="ubah('165150401111060','111')" class="secondary-content tooltipped" data-position="right" data-tooltip="Ubah Pengurus"><i class="mdi-content-create"></i></a>
-        </li>
+    <ul class="collection" style="border: none" id="listharian">
     </ul>
 </div>
-
+<!-- detail pengurus -->
 <div id="modal2" class="modal" style="min-height: 80% !important">
-    <div class="modal-content center-align">
-        <h5>Pengurus Staf Muda EM UB 2019</h5>
-        <div class="divider"></div>
-        <br>
-        <a href="#!" onclick="hapus()" class="secondary-content tooltipped" data-position="right" data-tooltip="Keluarkan Pengurus"><i class="mdi-content-clear" style="font-size: 25px"></i></a>
-        <img id="foto_pengurus" alt="foto pengurus">
-        <h6 id="nama_pengurus"></h6>
-        <div class="input-field col s8 offset-s2">
-            <select id="myDropdown" class="materialSelect">
-                <option value="" disabled selected>Pilih Divisi</option>
-            </select>
-            <label>Divisi</label>
+    <form id="formPengurus" action="">
+        <div class="modal-content center-align">
+            <h5>Data Pengurus</h5>
+            <div class="divider"></div>
+            <br>
+            <a href="#!" onclick="hapus()" class="secondary-content tooltipped" data-position="right" data-tooltip="Keluarkan Pengurus"><i class="mdi-content-clear" style="font-size: 25px"></i></a>
+            <img id="foto_pengurus" alt="foto pengurus">
+            <br>
+            <div class="input-field col s8 offset-s2">
+                <input id="nimPengurus" name="nimPengurus" type="text" class=" validate" placeholder="NIM">
+                <input id="nama_pengurus" name="nama_pengurus" type="text" class=" validate" placeholder="Nama Pengurus">
+                <select id="pilihanPengurus" class="materialSelect">
+                    <option value="" disabled selected>Pilih Divisi</option>
+                </select>
+                <input id="telepon" name="telepon" type="text" class=" validate" placeholder="Telepon">
+                <input id="linePengurus" name="linePengurus" type="text" class=" validate" placeholder="Line">
+            </div>
         </div>
-    </div>
-    <br>
-    <div class="modal-footer center-align mt-3">
-        <a href="#" onclick="tutup()" class="waves-effect waves-red btn-flat modal-close" style="float:none">Tidak</a>
-        <a href="#!" onclick="klik_pengurus()" class="modal-close modal-action waves-effect waves-green btn" onclick="klik_plotting()" style="float:none">Setuju</a>
-    </div>
+        <div style="margin-top:50vh"></div>
+        <div class="modal-footer center-align mt-3 mb-3">
+            <a href="#" onclick="tutup()" class="waves-effect waves-red btn-flat modal-close" style="float:none">Tidak</a>
+            <a href="#!" type="submit" onclick="klik_ubah()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
+            <div class="mt-3"></div>
+        </div>
+    </form>
 </div>
+<!-- hapus pengurus -->
 <div id="modal3" class="modal">
     <div class="modal-content center-align">
         <h5>Pesan Konfirmasi</h5>
@@ -76,97 +55,133 @@
     <br>
     <div class="modal-footer center-align mb-3">
         <a href="#" onclick="tutup()" class="waves-effect waves-red btn-flat modal-close" style="float:none">Tidak</a>
-        <a href="#!" onclick="klik_hapus()" class="modal-close modal-action waves-effect waves-green btn" onclick="klik_plotting()" style="float:none">Setuju</a>
+        <a href="#!" onclick="klik_hapus()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
     </div>
-    
+
 </div>
 <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
-        <a class="btn-floating btn-large modal-trigger" href="#modalpengurus">
-            <i class="mdi-content-add-circle"></i>
-        </a>
-    </div>
-    <div id="modalpengurus" class="modal" style="z-index: 4">
-        <form id="agenda">
-            <div class="modal-content center-align">
-                <h5>Tambahkan pengurus</h5>
-                <div class="divider"></div>
-                <br>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="nim_pengurus" name="nim_pengurus" type="text" class="validate">
-                        <label for="nim_pengurus" class="">NIM</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input id="lembaga" name="lembaga" type="text" class="validate">
-                        <label for="lembaga" class="">Lembaga</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="input-field col s12">
-                        <textarea id="deskripsi" name="deskripsi" class="materialize-textarea"></textarea>
-                        <label for="deskripsi" class="">Deskripsi</label>
-                    </div>
-                </div>
-            </div>
+    <a class="btn-floating btn-large modal-trigger" href="#modalpengurus">
+        <i class="mdi-content-add-circle"></i>
+    </a>
+</div>
+<!-- tambah pengurus -->
+<div id="modalpengurus" class="modal" style="z-index: 4">
+    <form id="agenda">
+        <div class="modal-content center-align">
+            <h5>Tambahkan pengurus</h5>
+            <div class="divider"></div>
             <br>
-            <div class="modal-footer right-align mb-3">
-                <a href="#" onclick="tutup()" class="waves-effect waves-red btn-flat modal-close" style="float:none">Tidak</a>
-                <a href="#!" onclick="klik_buat()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="nim_pengurus" name="nim_pengurus" type="text" class="validate">
+                    <label for="nim_pengurus" class="">NIM</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="lembaga" name="lembaga" type="text" class="validate">
+                    <label for="lembaga" class="">Lembaga</label>
+                </div>
             </div>
-        </form>
-    </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="deskripsi" name="deskripsi" class="materialize-textarea"></textarea>
+                    <label for="deskripsi" class="">Deskripsi</label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="modal-footer right-align mb-3">
+            <a href="#" onclick="tutup()" class="waves-effect waves-red btn-flat modal-close" style="float:none">Tidak</a>
+            <a href="#!" onclick="klik_buat()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
+        </div>
+    </form>
+</div>
+
 
 <script>
+    var nimlama = 0;
+    var pilihanlama = "";
+    var nama="";
+
     $(document).ready(function() {
         var pilihan = [{
-            "ID_PILIHAN": 20,
-            "TB_PILIHAN": "DIVISI ACARA"
+            "ID_PILIHAN": 68,
+            "TB_PILIHAN": "SDK"
         }, {
-            "ID_PILIHAN": 21,
-            "TB_PILIHAN": "DIVISI PIT"
+            "ID_PILIHAN": 67,
+            "TB_PILIHAN": "PUSKOMINFO"
         }, {
-            "ID_PILIHAN": 22,
-            "TB_PILIHAN": "DIVISI DDM"
-        }, {
-            "ID_PILIHAN": 23,
-            "TB_PILIHAN": "DIVISI HUMAS"
-        }, {
-            "ID_PILIHAN": 24,
-            "TB_PILIHAN": "DIVISI KONSUMSI"
-        }, {
-            "ID_PILIHAN": 25,
-            "TB_PILIHAN": "DIVISI PERLENGKAPAN"
-        }, {
-            "ID_PILIHAN": 26,
-            "TB_PILIHAN": "DIVISI KESTARI"
-        }, {
-            "ID_PILIHAN": 27,
-            "TB_PILIHAN": "DIVISI KESEHATAN"
-        }, {
-            "ID_PILIHAN": 28,
-            "TB_PILIHAN": "DIVISI KORLAP"
-        }, {
-            "ID_PILIHAN": 29,
-            "TB_PILIHAN": "DIVISI SPV"
+            "ID_PILIHAN": 70,
+            "TB_PILIHAN": "ADKEU"
         }];
 
         $.each(pilihan, function(i, item) {
             var $newOpt = $("<option>").attr("value", item.ID_PILIHAN).text(item.TB_PILIHAN)
-            $("#myDropdown").append($newOpt);
-            $("#myDropdown").trigger('contentChanged');
+            $("#pilihanPengurus").append($newOpt);
+            $("#pilihanPengurus").trigger('contentChanged');
         });
+        autoload();
     });
 
-    function ubah(nim, agenda) {
+    function autoload() {
+        let harian = "";
+        let inti = "";
+        $.ajax({
+            url: '<?php echo base_url('pengurus/get') ?>',
+            type: 'POST',
+            data: {
+                id_agenda: id_agenda,
+            },
+            dataType: 'json',
+            success: (r) => {
+                if (r.error == false) {
+                    r.data.forEach(element => {
+                        nama = "'" + element.NAMA + "'";
+                        if (element.STATUS == 'BPI') {
+                            inti += '<li class="collection-item avatar"> <i class="mdi-action-account-circle circle green"></i> <span class="title">' + element.NAMA + '<p>' + element.JABATAN + '</p>' + element.ACTION + '</li>';
+                        } else {
+                            harian += '<li class="collection-item avatar"> <i class="mdi-action-account-circle circle green"></i> <span class="title">' + element.NAMA + '<p>' + element.JABATAN + '</p>' + element.ACTION + '</li>';
+                        }
+                    });
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Calon tidak terdaftar'
+                    })
+                    $("#modal1").fadeOut();
+                }
+                tampilan_awal(inti, harian);
+            }
+        })
+    }
+
+    function tampilan_awal(inti, harian) {
+        $("#listharian").html("");
+        $("#listinti").html("");
+        $("#listinti").append(inti);
+        $("#listharian").append(harian);
+    }
+
+    function ubah(nim, pilihan, nama, telepon, line) {
+        $('#foto_pengurus').attr('src', "");
+        $('#nama_pengurus').text("");
+        $('#nimPengurus').text("");
+        $("input[name=telepon]").val("");
+        $("input[name=linePengurus]").val("");
+        window.nimlama = nim;
+        window.pilihanlama = pilihan;
+        window.nama = nama;
+
         var foto = "https://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim=" + nim + "&key=MzIxZm90b3V5ZTEyMysyMDE4LTA4LTIxIDIxOjA2OjAw";
         $('#foto_pengurus').attr('src', foto);
-        $('#nama_pengurus').text('GHANY ABDILLAH ERSA');
+        $("input[name=nimPengurus]").val(nim);
+        $("input[name=nama_pengurus]").val(nama);
+        $("input[name=telepon]").val(telepon);
+        $("input[name=linePengurus]").val(line);
         $('#modal2').fadeIn('slow');
     }
 
     function hapus() {
-        var nama= $('#nama_pengurus').text();
         $('#pengurus_drop').text(nama);
         $('#modal2').fadeOut('slow');
         $('#modal3').fadeIn('slow');
@@ -177,39 +192,65 @@
     }
 
     function klik_hapus() {
-        $('.modal').fadeOut('slow');
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        })
+        $.ajax({
+            url: "<?= base_url('pengurus/delete') ?>",
+            type: 'POST',
+            data: {
+                nim: nimlama,
+                id_pilihan: pilihanlama
+            },
+            dataType: "json",
+            success: (r) => {
+                if (!r.error) {
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Pengurus berhasil dihapus'
+                    })
+                    autoload();
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Pengurus gagal dihapus'
+                    })
+                }
+                $('.modal').fadeOut('slow');
+            }
+        });
 
-        // Toast.fire({
-        //     type: 'success',
-        //     title: 'Pengurus berhasil dihapus'
-        // })
-        Toast.fire({
-            type: 'error',
-            title: 'Pengurus gagal dihapus'
-        })
     }
-    function klik_pengurus() {
-        $('#modal2').fadeOut('slow');
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        })
 
-        Toast.fire({
-            type: 'success',
-            title: 'Perubahan Berhasil Dilakukan'
+    function klik_ubah() {
+        $.ajax({
+            url: '<?php echo base_url('pengurus/update') ?>',
+            type: 'POST',
+            data: {
+                idlama: pilihanlama,
+                nimlama: nimlama,
+                nim: $("#nimPengurus").val(),
+                nama: $("#nama_pengurus").val(),
+                id_pilihan: $("#pilihanPengurus").children("option:selected").val(),
+                line: $("#linePengurus").val(),
+                telpon: $("#telepon").val()
+            },
+            dataType: 'json',
+            success: (r) => {
+                if (r.error == false) {
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Perubahan berhasil dilakukan'
+                    })
+                    autoload();
+                    $('#modal2').fadeOut('slow');
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Perubahan gagal dilakukan'
+                    })
+                    $("#modal2").fadeOut();
+                }
+
+
+            }
         })
-        // Toast.fire({
-        //     type: 'error',
-        //     title: 'Perubahan Gagal Dilakukan'
-        // })
     }
 </script>

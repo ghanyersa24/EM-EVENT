@@ -7,8 +7,8 @@ class Pengurus extends CI_Controller
 	{
 		parent::__construct();
 		if (!$this->session->userdata('logged')) {
-            redirect('logout');
-        }
+			redirect('logout');
+		}
 		$this->load->model('M_pengurus');
 		$this->load->model('M_agenda');
 		$this->load->model('Master');
@@ -44,9 +44,10 @@ class Pengurus extends CI_Controller
 
 	public function get()
 	{
-		$idagenda = 7;
-		$check = $this->M_agenda->checkAgenda($idagenda);
-		if ($check) {
+		$idagenda = r($this->input->post('id_agenda'));
+		// $idagenda=15;
+		$check = $this->M_agenda->check($idagenda);
+		if (!empty($check)) {
 			$data = $this->M_pengurus->get($idagenda);
 			if (empty($data)) {
 				echo json_encode(
@@ -58,12 +59,13 @@ class Pengurus extends CI_Controller
 					)
 				);
 			} else {
+				header('Content-Type: application/json');
 				echo json_encode(
 					array(
 						'status' => 200,
 						'error' => false,
 						'message' => 'data berhasil diterima',
-						'data' => $data
+						'data' => $this->parse($data)
 					)
 				);
 			}
@@ -123,23 +125,26 @@ class Pengurus extends CI_Controller
 	{
 		$idlama = r($this->input->POST('idlama'));
 		$nim = r($this->input->POST('nimlama'));
+		$idpilihan=r($this->input->POST('id_pilihan'));
 		$data = array(
-			"ID_PILIHAN" =>  r($this->input->POST('id_pilihan')),
-			"NIM" => r($this->input->POST('nim')),
+			"NIM" =>  r($this->input->POST('nim')),
 			"NAMA" => r($this->input->POST('nama')),
 			"TELPON" => r($this->input->POST('telpon')),
 			"LINE" => r($this->input->POST('line')),
 		);
+		if($idpilihan !==""){
+			$data["ID_PILIHAN"]= $idpilihan;
+		}
 		$check = $this->Master->update('TB_PENGURUS', $data, array('ID_PILIHAN' => $idlama, 'NIM' => $nim));
 		if ($check) {
 			$data = array(
-				'status' => true,
+				'error' => false,
 				'message' => 'Data berhasil diupdate',
 				'data' => $data
 			);
 		} else {
 			$data = array(
-				'status' => false,
+				'error' => true,
 				'message' => 'Data gagal diupdate',
 				'data' => $data
 			);
@@ -154,17 +159,40 @@ class Pengurus extends CI_Controller
 		$check = $this->Master->delete('TB_PENGURUS', array('NIM' => $nim, 'ID_PILIHAN' => $id));
 		if ($check) {
 			$data = array(
-				'status' => true,
+				'error' => false,
 				'message' => 'Data berhasil dihapus',
 				'data' => $check
 			);
 		} else {
 			$data = array(
-				'status' => false,
+				'error' => true,
 				'message' => 'Data gagal dihapus',
 				'data' => $check
 			);
 		}
 		echo json_encode($data);
+	}
+
+	private function parse($data)
+	{
+		$res = array();
+		$i = 1;
+		foreach ($data as $key) {
+			$nim="'".$key['NIM']."'";
+			$nama="'".$key['NAMA']."'";
+			$idpilihan="'".$key['ID_PILIHAN']."'";
+			$telpon="'".$key['TELPON']."'";
+			$line="'".$key['LINE']."'";
+			$temp = array(
+				'NO' => $i,
+				'NAMA' => $key['NAMA'],
+				'JABATAN' => $key['TB_PILIHAN'],
+				'STATUS' => $key['HAK'],
+				'ACTION' => '<a href = "#!" onclick = "ubah('.$nim.','.$idpilihan.','.$nama.','.$telpon.','.$line.')" class = "secondary-content tooltipped" data - position = "right" data - tooltip = "Ubah Pengurus" > <i class="mdi-content-create"> </i></a >'
+			);
+			array_push($res, $temp);
+			$i++;
+		}
+		return $res;
 	}
 }

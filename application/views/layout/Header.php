@@ -12,11 +12,11 @@
                 </ul>
                 <div class="header-search-wrapper hide-on-med-and-down">
                     <ul class="tabs tab-demo-active cyan">
-                        <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#beranda">Beranda</a>
+                        <li class="tab col s3"><a class="white-text waves-effect waves-light " href="#beranda">Beranda</a>
                         </li>
                         <li class="tab col s3"><a class="white-text waves-effect waves-light " href="#timeline">Timeline</a>
                         </li>
-                        <li class="tab col s3"><a class="white-text waves-effect waves-light " href="#pengurus">Pengurus</a>
+                        <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#pengurus">Pengurus</a>
                         </li>
                     </ul>
                 </div>

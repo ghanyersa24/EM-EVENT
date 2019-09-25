@@ -42,31 +42,16 @@ class Divisi extends CI_Controller
 
 	public function get($idagenda, $divisi)
 	{
-		// $divisi = r($this->input->post('id_pilihan'));
-		// $idagenda = r($this->input->post('id_agenda'));
-		// $divisi = 20;
-		// $idagenda = 10;
 		$data = $this->M_divisi->get($divisi, $idagenda);
-		if (empty($data)) {
-			echo json_encode(
-				array(
-					'status' => 200,
-					'error' => true,
-					'message' => 'data agenda tidak berhasil diterima',
-					'data' => null
-				)
-			);
-		} else {
-			$get = $this->parse($data);
-			echo json_encode(
-				array(
-					'status' => 200,
-					'error' => false,
-					'message' => 'data agenda berhasil diterima',
-					'data' => $get
-				)
-			);
-		}
+		$get = $this->parse($data);
+		echo json_encode(
+			array(
+				'status' => 200,
+				'error' => false,
+				'message' => 'data agenda berhasil diterima',
+				'data' => $get
+			)
+		);
 	}
 
 	public function getBio()
@@ -107,26 +92,22 @@ class Divisi extends CI_Controller
 			);
 		}
 	}
-	public function parse($data)
+	private function parse($data)
 	{
-		if (!empty($data)) {
-			$res = array();
-			$i = 1;
-			foreach ($data as $key) {
-				$temp = array(
-					'NO' => $i,
-					'NAMA' => $key['NAMA_LENGKAP'],
-					'FAKULTAS' => $key['FAKULTAS'],
-					'TIKET' => date('d F Y', strtotime($key['JADWAL'])),
-					'STATUS' => $key['STATUS'],
-					'ACTION' => '<a class="waves-effect waves-light btn-small" onclick="buka(' . $key['NIM'] . ')" style="font-size: 30px"><i class="mdi-action-visibility"></i></a>'
-				);
-				array_push($res, $temp);
-				$i++;
-			}
-			return $res;
-		} else {
-			return $data;
+		$res = array();
+		$i = 1;
+		foreach ($data as $key) {
+			$temp = array(
+				'NO' => $i,
+				'NAMA' => $key['NAMA_LENGKAP'],
+				'FAKULTAS' => $key['FAKULTAS'],
+				'JADWAL' => date('d F Y', strtotime($key['JADWAL'])),
+				'STATUS' => $key['STATUS'],
+				'ACTION' => '<a class="waves-effect waves-light btn-small" onclick="buka(' . $key['NIM'] . ')" style="font-size: 30px"><i class="mdi-action-visibility"></i></a>'
+			);
+			array_push($res, $temp);
+			$i++;
 		}
+		return $res;
 	}
 }
