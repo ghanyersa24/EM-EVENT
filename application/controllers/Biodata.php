@@ -45,10 +45,10 @@ class Biodata extends CI_Controller
         $darah          = r($this->input->post('darah'));
         $pdh            = r($this->input->post('pdh'));
         $hijab          = r($this->input->post('hijab'));
-        if($hijab=='on'){
-            $hijab='BERHIJAB';
-        }else{
-            $hijab='TIDAK BERHIJAB';
+        if ($hijab == 'on') {
+            $hijab = 'BERHIJAB';
+        } else {
+            $hijab = 'TIDAK BERHIJAB';
         }
 
         $dataBio = array(
@@ -872,10 +872,10 @@ class Biodata extends CI_Controller
             $data = array(
                 "BIODATA" => array(
                     "NIM" => $res["NIM"],
-                    "AGAMA"=> $res["AGAMA"]
+                    "AGAMA" => $res["AGAMA"]
                 ),
                 "JADWAL" => json_decode($res["JADWAL"]),
-                "PILIHAN" => json_decode($res["PILIHAN"]),
+                "PILIHAN" => pilihan(json_decode($res["PILIHAN"],true)),
                 "DAFTAR" => json_decode($res["DAFTAR"]),
                 "AGENDA" => json_decode($res["AGENDA"]),
             );
@@ -906,14 +906,14 @@ class Biodata extends CI_Controller
             unset($res["DAFTAR"]);
             unset($res["JADWAL"]);
             unset($res["PILIHAN"]);
-            $res["PENDIDIKAN_FORMAL"]=json_decode($res["PENDIDIKAN_FORMAL"]);
-            $res["PENDIDIKAN_NON_FORMAL"]=json_decode($res["PENDIDIKAN_NON_FORMAL"]);
-            $res["PENGALAMAN_KEPANITIAAN"]=json_decode($res["PENGALAMAN_KEPANITIAAN"]);
-            $res["KEPANITIAAN_DIIKUTI"]=json_decode($res["KEPANITIAAN_DIIKUTI"]);
-            $res["PENGALAMAN_ORGANISASI"]=json_decode($res["PENGALAMAN_ORGANISASI"]);
-            $res["ORGANISASI_DIIKUTI"]=json_decode($res["ORGANISASI_DIIKUTI"]);
-            $res["PRESTASI"]=json_decode($res["PRESTASI"]);
-            $res["PERFORM"]=json_decode($res["PERFORM"]);
+            $res["PENDIDIKAN_FORMAL"] = json_decode($res["PENDIDIKAN_FORMAL"]);
+            $res["PENDIDIKAN_NON_FORMAL"] = json_decode($res["PENDIDIKAN_NON_FORMAL"]);
+            $res["PENGALAMAN_KEPANITIAAN"] = json_decode($res["PENGALAMAN_KEPANITIAAN"]);
+            $res["KEPANITIAAN_DIIKUTI"] = json_decode($res["KEPANITIAAN_DIIKUTI"]);
+            $res["PENGALAMAN_ORGANISASI"] = json_decode($res["PENGALAMAN_ORGANISASI"]);
+            $res["ORGANISASI_DIIKUTI"] = json_decode($res["ORGANISASI_DIIKUTI"]);
+            $res["PRESTASI"] = json_decode($res["PRESTASI"]);
+            $res["PERFORM"] = json_decode($res["PERFORM"]);
             echo json_encode(
                 array(
                     'status' => 200,

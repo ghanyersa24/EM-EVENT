@@ -18,3 +18,17 @@ function checkCIAM($nim, $auth)
 	return json_decode($url);
 }
 
+function pilihan($data)
+{
+	$res = array();
+	foreach ($data as $pilihan) {
+		if ($pilihan['HAK'] == 'BPH') { 
+			$temp= array(
+				'ID_PILIHAN'=>$pilihan['ID_PILIHAN'],
+				'TB_PILIHAN'=>$pilihan['TB_PILIHAN'],
+			);
+			array_push($res,$temp);
+		}
+	}
+	return $res;
+}
