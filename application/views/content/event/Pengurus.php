@@ -11,6 +11,61 @@
     <ul class="collection" style="border: none" id="listharian">
     </ul>
 </div>
+
+<div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+    <a class="btn-floating btn-large modal-trigger" href="#add_nim">
+        <i class="mdi-content-add-circle"></i>
+    </a>
+</div>
+
+<!-- tambah pengurus -->
+<div id="add_nim" class="modal" style="z-index: 4">
+    <div class="modal-content center-align">
+        <h5>Tambahkan Pengurus</h5>
+        <div class="divider"></div>
+        <br>
+        <div class="center-align">
+            <form action="" id="presensiform">
+                <div class="row mt-3">
+                    <div class="input-field col s8 m6 offset-s2 offset-m3">
+                        <input id="add_nim_pengurus" type="number" class="validate">
+                        <label for="add_nim_pengurus" class="center-align">NIM</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn cyan waves-effect waves-light mb-3" onclick="search()">Submit
+                    <i class="mdi-content-send right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="add_pengurus" class="modal" style="min-height: 89% !important; margin-top:-7vh; z-index:9999">
+    <form id="formPengurus" action="">
+        <div class="modal-content center-align">
+            <h5>Tambah Pengurus</h5>
+            <div class="divider"></div>
+            <br>
+            <img id="foto_pengurus" alt="foto pengurus">
+            <br>
+            <div class="input-field col s8 offset-s2">
+                <input id="nimPengurus" name="nimPengurus" type="text" class=" validate" placeholder="NIM">
+                <input id="nama_pengurus" name="nama_pengurus" type="text" class=" validate" placeholder="Nama Pengurus">
+                <select id="pilihanPengurus" class="materialSelect">
+                    <option value="" disabled selected>Pilih Divisi</option>
+                </select>
+                <input id="telepon" name="telepon" type="text" class=" validate" placeholder="Telepon">
+                <input id="linePengurus" name="linePengurus" type="text" class=" validate" placeholder="Line">
+            </div>
+        </div>
+        <div style="margin-top:50vh"></div>
+        <div class="modal-footer center-align mt-3 mb-3">
+            <a href="#" class="waves-effect waves-red btn-flat modal-close" onclick="tutup()" style="float:none">Tidak</a>
+            <a href="#!" type="submit" onclick="tambah_pengurus()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
+            <div class="mt-3"></div>
+        </div>
+    </form>
+</div>
 <!-- detail pengurus -->
 <div id="modal2" class="modal" style="min-height: 80% !important">
     <form id="formPengurus" action="">
@@ -59,49 +114,11 @@
     </div>
 
 </div>
-<div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
-    <a class="btn-floating btn-large modal-trigger" href="#modalpengurus">
-        <i class="mdi-content-add-circle"></i>
-    </a>
-</div>
-<!-- tambah pengurus -->
-<div id="modalpengurus" class="modal" style="z-index: 4">
-    <form id="agenda">
-        <div class="modal-content center-align">
-            <h5>Tambahkan pengurus</h5>
-            <div class="divider"></div>
-            <br>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="nim_pengurus" name="nim_pengurus" type="text" class="validate">
-                    <label for="nim_pengurus" class="">NIM</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="lembaga" name="lembaga" type="text" class="validate">
-                    <label for="lembaga" class="">Lembaga</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="input-field col s12">
-                    <textarea id="deskripsi" name="deskripsi" class="materialize-textarea"></textarea>
-                    <label for="deskripsi" class="">Deskripsi</label>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="modal-footer right-align mb-3">
-            <a href="#" onclick="tutup()" class="waves-effect waves-red btn-flat modal-close" style="float:none">Tidak</a>
-            <a href="#!" onclick="klik_buat()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
-        </div>
-    </form>
-</div>
-
 
 <script>
     var nimlama = 0;
     var pilihanlama = "";
-    var nama="";
+    var nama = "";
 
     $(document).ready(function() {
         var pilihan = [{
@@ -160,6 +177,28 @@
         $("#listinti").html("");
         $("#listinti").append(inti);
         $("#listharian").append(harian);
+    }
+
+    function search() {
+        var nim = $("#add_nim_pengurus").val();
+        $('#add_nim').fadeOut('slow');
+        Toast.fire({
+            type: 'error',
+            title: 'NIM belum pernah melakukan login di EM APPS'
+        })
+        $('#add_pengurus').fadeIn('slow');
+    }
+
+    function tambah_pengurus() {
+        // Toast.fire({
+        //     type: 'success',
+        //     title: 'Pengurus berhasil ditambahkan'
+        // })
+        Toast.fire({
+            type: 'error',
+            title: 'Pengurus gagal ditambahkan'
+        })
+        tutup();
     }
 
     function ubah(nim, pilihan, nama, telepon, line) {
