@@ -77,6 +77,58 @@
             <a href="#!" onclick="setuju()" class="modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
         </div>
     </div>
+    <div id="edit_agenda" class="modal" style="z-index: 1200; top:5vh; min-height: 90vh">
+        <form id="agenda">
+            <div class="modal-content center-align">
+                <h5>Buat Rekrutmen</h5>
+                <div class="divider"></div>
+                <br>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="tb_agenda" name="tb_agenda" type="text" class="validate">
+                        <label for="tb_agenda" class="">Nama Acara</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="lembaga" name="lembaga" type="text" class="validate">
+                        <label for="lembaga" class="">Lembaga</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="deskripsi" name="deskripsi" class="materialize-textarea"></textarea>
+                        <label for="deskripsi" class="">Deskripsi</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s4">
+                        <a class="c-btn c-datepicker-btn pickBuka">
+                            <span class="material-icon">Tanggal Buka</span>
+                        </a>
+                        <input id="buka" name="buka" type="text" readonly>
+                    </div>
+                    <div class="input-field col s4">
+                        <a class="c-btn c-datepicker-btn pickTutup">
+                            <span class="material-icon">Tanggal Tutup</span>
+                        </a>
+                        <input id="tutup" name="tutup" type="text" readonly>
+                    </div>
+                    <div class="input-field col s4">
+                        <a class="c-btn c-datepicker-btn pickUmum">
+                            <span class="material-icon">Tanggal Pengumuman</span>
+                        </a>
+                        <input id="pengumuman" name="pengumuman" type="text" readonly>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="modal-footer right-align mb-3">
+                <a href="#" onclick="tutup()" class="waves-effect waves-red btn-flat modal-close" style="float:none">Tidak</a>
+                <a href="#!" onclick="klik_buat()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
+            </div>
+        </form>
+    </div>
     <!-- --end modal -->
     <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
         <a class="btn-floating btn-large modal-trigger" href="#konfirm">
@@ -116,7 +168,7 @@
             success: (r) => {
                 r.data.forEach(r => {
                     let id_agenda = window.btoa(r.ID_AGENDA);
-                    agenda += '<div class="col l3"><div class="card"><div class="card-image waves-effect waves-block waves-light"><img class="activator" src="' + r.FOTO + '"></div><div class="card-content"><span class="card-title activator grey-text text-darken-4">' + r.TB_AGENDA.substring(0, 17) + '<br><i class="material-icons right">more_vert</i></span><p><a href="<?= base_url('presensi/index/') ?>' + id_agenda + '">Masuk</a></p></div><div class="card-reveal"><span class="card-title grey-text text-darken-4">' + r.TB_AGENDA + '<i class="material-icons right">close</i></span><p>' + r.DESKRIPSI + '</p></div></div></div>';
+                    agenda += '<div class="col l3"><div class="card"><div class="card-image waves-effect waves-block waves-light"><img class="activator" src="' + r.FOTO + '"></div><div class="card-content"><span class="card-title activator grey-text text-darken-4">' + r.TB_AGENDA.substring(0, 17) + '<br> </span> <p><a href="<?= base_url('presensi/index/') ?>' + id_agenda + '">Masuk</a> <a class="modal-trigger" href="#edit_agenda" onclick="edit_agenda()"><i class="material-icons right">more_vert</i></a> </p></div><div class="card-reveal"><span class="card-title grey-text text-darken-4">' + r.TB_AGENDA + '<i class="material-icons right">close</i></span><p>' + r.DESKRIPSI + '</p></div></div></div>';
                 });
                 tampilan_awal(agenda);
             }
@@ -130,6 +182,10 @@
 
     function tutup() {
         $('.modal').fadeOut('slow');
+    }
+
+    function edit_agenda() {
+        $("#edit_agenda").fadeIn('slow');
     }
 
     function setuju() {
