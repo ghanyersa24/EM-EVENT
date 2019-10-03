@@ -65,4 +65,9 @@ class M_Pengurus extends CI_Model
 			return false;
 		}
 	}
+
+	public function checkbio($nim)
+	{
+		return $this->db->where('NIM',$nim)->get('TB_BIODATA')->result_array();
+	}
 }

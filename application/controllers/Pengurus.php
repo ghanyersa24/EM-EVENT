@@ -22,19 +22,19 @@ class Pengurus extends CI_Controller
 			"ID_PILIHAN" =>  r($this->input->POST('id_pilihan')),
 			"NIM" => r($this->input->POST('nim')),
 			"NAMA" => r($this->input->POST('nama')),
-			"TELPON" => r($this->input->POST('telpon')),
+			"TELPON" => r($this->input->POST('telepon')),
 			"LINE" => r($this->input->POST('line')),
 		);
 		$check = $this->Master->insert('TB_PENGURUS', $data);
 		if ($check) {
 			$data = array(
-				'status' => true,
+				'error' => false,
 				'message' => 'Data berhasil diinput',
 				'data' => $data
 			);
 		} else {
 			$data = array(
-				'status' => false,
+				'error' => true,
 				'message' => 'Data gagal diinputkan',
 				'data' => $data
 			);
@@ -125,15 +125,15 @@ class Pengurus extends CI_Controller
 	{
 		$idlama = r($this->input->POST('idlama'));
 		$nim = r($this->input->POST('nimlama'));
-		$idpilihan=r($this->input->POST('id_pilihan'));
+		$idpilihan = r($this->input->POST('id_pilihan'));
 		$data = array(
 			"NIM" =>  r($this->input->POST('nim')),
 			"NAMA" => r($this->input->POST('nama')),
 			"TELPON" => r($this->input->POST('telpon')),
 			"LINE" => r($this->input->POST('line')),
 		);
-		if($idpilihan !==""){
-			$data["ID_PILIHAN"]= $idpilihan;
+		if ($idpilihan !== "") {
+			$data["ID_PILIHAN"] = $idpilihan;
 		}
 		$check = $this->Master->update('TB_PENGURUS', $data, array('ID_PILIHAN' => $idlama, 'NIM' => $nim));
 		if ($check) {
@@ -173,22 +173,48 @@ class Pengurus extends CI_Controller
 		echo json_encode($data);
 	}
 
+	public function check()
+	{
+		header('Content-Type: application/json');
+		$nim=$this->input->post('nim');
+		$get = $this->M_pengurus->checkbio($nim);
+		if (!empty($get)) {
+			echo json_encode(
+				array(
+					'status' => 200,
+					'error' => false,
+					'message' => 'nim pernah login ke em apps',
+					'data' => $get[0]
+				)
+			);
+		} else {
+			echo json_encode(
+				array(
+					'status' => 200,
+					'error' => true,
+					'message' => 'nim belum pernah login ke em apps',
+					'data' => $nim
+				)
+			);
+		}
+	}
+
 	private function parse($data)
 	{
 		$res = array();
 		$i = 1;
 		foreach ($data as $key) {
-			$nim="'".$key['NIM']."'";
-			$nama="'".$key['NAMA']."'";
-			$idpilihan="'".$key['ID_PILIHAN']."'";
-			$telpon="'".$key['TELPON']."'";
-			$line="'".$key['LINE']."'";
+			$nim = "'" . $key['NIM'] . "'";
+			$nama = "'" . $key['NAMA'] . "'";
+			$idpilihan = "'" . $key['ID_PILIHAN'] . "'";
+			$telpon = "'" . $key['TELPON'] . "'";
+			$line = "'" . $key['LINE'] . "'";
 			$temp = array(
 				'NO' => $i,
 				'NAMA' => $key['NAMA'],
 				'JABATAN' => $key['TB_PILIHAN'],
 				'STATUS' => $key['HAK'],
-				'ACTION' => '<a href = "#!" onclick = "ubah('.$nim.','.$idpilihan.','.$nama.','.$telpon.','.$line.')" class = "secondary-content tooltipped" data - position = "right" data - tooltip = "Ubah Pengurus" > <i class="mdi-content-create"> </i></a >'
+				'ACTION' => '<a href = "#!" onclick = "ubah(' . $nim . ',' . $idpilihan . ',' . $nama . ',' . $telpon . ',' . $line . ')" class = "secondary-content tooltipped" data - position = "right" data - tooltip = "Ubah Pengurus" > <i class="mdi-content-create"> </i></a >'
 			);
 			array_push($res, $temp);
 			$i++;
