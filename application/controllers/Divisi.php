@@ -30,7 +30,7 @@ class Divisi extends CI_Controller
 				'idpilihan' => $idpilihan,
 				'agenda' => $check[0]['TB_AGENDA'],
 				'title' => $divisi[0]['TB_PILIHAN'],
-				'divisi' => pilihan($this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))),
+				// 'divisi' => pilihan($this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))),
 				'listagenda' => $this->M_agenda->getAgenda($nim)
 
 			);

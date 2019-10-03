@@ -26,7 +26,7 @@ class Statistik extends CI_Controller
 				'idagenda' => $idagenda,
 				'agenda' => $check[0]['TB_AGENDA'],
 				'title' => 'DATA STATISTIK',
-				'divisi' => pilihan($this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))),
+				// 'divisi' => pilihan($this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))),
 				'listagenda' => $this->M_agenda->getAgenda($nim)
 			);
 			$this->load->view('Template-detail', $data);

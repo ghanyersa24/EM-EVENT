@@ -25,6 +25,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+    @media only screen and (max-width: 993px) {
+    #up {
+        margin-top: 5vh;
+    }
+}
+    </style>
 </head>
 
 <body>
@@ -43,7 +50,7 @@
     ?>
 
     <!-- START MAIN -->
-    <section id="">
+    <section>
         <div class="wrapper">
             <!-- START LEFT SIDEBAR NAV DONE-->
             <aside id="left-sidebar-nav">
@@ -91,8 +98,7 @@
             <!-- END LEFT SIDEBAR NAV-->
             <section id="content">
                 <br>
-                <!--start container-->
-                <div class="container row">
+                <div class="container row" id="up">
                     <div id="beranda" class="row">
                         <div class="col m3">
                             <ul class="nav-2">
