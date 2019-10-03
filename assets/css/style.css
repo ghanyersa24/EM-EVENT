@@ -2167,6 +2167,9 @@ tr.group:hover {
 }
 
 @media screen and (max-width: 1224px) {
+    .height-pop {
+        min-height: 90vh !important;
+    }
     .blog-sizer {
         width: 33.33%;
     }

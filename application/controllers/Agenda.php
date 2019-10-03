@@ -32,15 +32,10 @@ class Agenda extends CI_Controller
 		$buka = r($this->input->POST('tgl_buka'));
 		$tutup = r($this->input->POST('tgl_tutup'));
 		$pengumuman = r($this->input->POST('tgl_pengumuman'));
+		$buka = date('Y-m-d H:m', strtotime($buka));
+		$tutup = date('Y-m-d H:m', strtotime($tutup));
+		$pengumuman = date('Y-m-d H:m', strtotime($pengumuman));
 
-		if ($buka == "")
-			$buka = date('Y-m-d H:m', strtotime($buka));
-
-		if ($tutup == "")
-			$tutup = date('Y-m-d H:m', strtotime($tutup));
-
-		if ($pengumuman == "")
-			$pengumuman = date('Y-m-d H:m', strtotime($pengumuman));
 
 		if ($gambar == "")
 			$gambar = 'https://i.postimg.cc/MHs6pZsF/em-event.jpg';
@@ -95,10 +90,39 @@ class Agenda extends CI_Controller
 		}
 		echo json_encode($data);
 	}
-	public function get()
+
+	public function all()
 	{
 		$nim = $this->session->userdata('nim');
-		$data = $this->M_agenda->getAgenda($nim);
+		$data = agenda($this->M_agenda->getAgenda($nim));
+		header('Content-Type: application/json');
+		if (empty($data)) {
+			echo json_encode(
+				array(
+					'status' => 200,
+					'error' => true,
+					'message' => 'data agenda tidak berhasil diterima',
+					'data' => null
+				)
+			);
+		} else {
+			echo json_encode(
+				array(
+					'status' => 200,
+					'error' => false,
+					'message' => 'data agenda berhasil diterima',
+					'data' => $data
+				)
+			);
+		}
+	}
+
+	public function get()
+	{
+		$agenda = base64_decode($this->input->post('id_agenda'));
+		$data = $this->M_agenda->check($agenda)[0];
+		header('Content-Type: application/json');
+		// echo json_encode($data);
 		if (empty($data)) {
 			echo json_encode(
 				array(
@@ -122,14 +146,20 @@ class Agenda extends CI_Controller
 
 	public function update()
 	{
-		$id = $this->input->post('ID_AGENDA');
+		$id = $this->input->post('id_agenda');
+		$buka = r($this->input->POST('tgl_buka'));
+		$tutup = r($this->input->POST('tgl_tutup'));
+		$pengumuman = r($this->input->POST('tgl_pengumuman'));
+		$buka = date('Y-m-d H:m', strtotime($buka));
+		$tutup = date('Y-m-d H:m', strtotime($tutup));
+		$pengumuman = date('Y-m-d H:m', strtotime($pengumuman));
 		$data = array(
 			"TB_AGENDA" => r($this->input->POST('tb_agenda')),
 			"LEMBAGA" => r($this->input->POST('lembaga')),
 			"DESKRIPSI" => r($this->input->POST('deskripsi')),
-			"TGL_BUKA" => r($this->input->POST('tgl_buka')),
-			"TGL_TUTUP" => r($this->input->POST('tgl_tutup')),
-			"TGL_PENGUMUMAN" => r($this->input->POST('tgl_pengumuman')),
+			"TGL_BUKA" => $buka,
+			"TGL_TUTUP" => $tutup,
+			"TGL_PENGUMUMAN" => $pengumuman,
 			"TB_PILIHAN_PENGUMUMAN" => r($this->input->POST('tb_pilihan_pengumuman')),
 			"FOTO" => r($this->input->POST('foto')),
 			"STATUS" => 'DRAFT',

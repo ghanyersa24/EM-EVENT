@@ -16,9 +16,9 @@ class Pilihan extends CI_Controller
 		$this->load->helper('Parsing');
 	}
 
-	public function setPilihan()
+	public function set()
 	{
-		$idagenda = 20;
+		$idagenda = $this->input->post('id_agenda');
 		$data = array(
 			"ID_PILIHAN" =>  "",
 			"ID_AGENDA" => $idagenda,
@@ -28,13 +28,13 @@ class Pilihan extends CI_Controller
 		$check = $this->Master->insert('TB_PILIHAN', $data);
 		if ($check) {
 			$data = array(
-				'status' => true,
+				'error' => false,
 				'message' => 'Data berhasil diinput',
 				'data' => $data
 			);
 		} else {
 			$data = array(
-				'status' => false,
+				'error' => true,
 				'message' => 'Data gagal diinputkan',
 				'data' => $data
 			);
@@ -42,10 +42,9 @@ class Pilihan extends CI_Controller
 		echo json_encode($data);
 	}
 
-	public function get($idencode)
+	public function get()
 	{
-		$idencode = base64_encode($idencode);
-		$idagenda = base64_decode($idencode);
+		$idagenda = $this->input->post('id_agenda');
 		$data = $this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $idagenda));
 		if (empty($data)) {
 			echo json_encode(
@@ -62,7 +61,7 @@ class Pilihan extends CI_Controller
 					'status' => 200,
 					'error' => false,
 					'message' => 'data berhasil diterima',
-					'data' => $data
+					'data' => divisi($data)
 				)
 			);
 		}
@@ -95,14 +94,12 @@ class Pilihan extends CI_Controller
 
 	public function update()
 	{
-		$idlama = r($this->input->POST('idlama'));
-		$idagenda = r($this->input->POST('idagenda'));
+		$idlama = r($this->input->POST('id_pilihan'));
 		$data = array(
-			"ID_PILIHAN" =>  r($this->input->POST('id_pilihan')),
 			"TB_PILIHAN" => r($this->input->POST('pilihan')),
 			"HAK" => r($this->input->POST('hak')),
 		);
-		$check = $this->Master->update('TB_PILIHAN', $data, array('ID_PILIHAN' => $idlama, 'ID_AGENDA' => $idagenda));
+		$check = $this->Master->update('TB_PILIHAN', $data, array('ID_PILIHAN' => $idlama));
 		if ($check) {
 			$data = array(
 				'status' => true,

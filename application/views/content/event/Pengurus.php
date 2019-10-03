@@ -121,22 +121,22 @@
     var nama = "";
 
     $(document).ready(function() {
-        var pilihan = [{
-            "ID_PILIHAN": 68,
-            "TB_PILIHAN": "SDK"
-        }, {
-            "ID_PILIHAN": 67,
-            "TB_PILIHAN": "PUSKOMINFO"
-        }, {
-            "ID_PILIHAN": 70,
-            "TB_PILIHAN": "ADKEU"
-        }];
+        // var pilihan = [{
+        //     "ID_PILIHAN": 68,
+        //     "TB_PILIHAN": "SDK"
+        // }, {
+        //     "ID_PILIHAN": 67,
+        //     "TB_PILIHAN": "PUSKOMINFO"
+        // }, {
+        //     "ID_PILIHAN": 70,
+        //     "TB_PILIHAN": "ADKEU"
+        // }];
 
-        $.each(pilihan, function(i, item) {
-            var $newOpt = $("<option>").attr("value", item.ID_PILIHAN).text(item.TB_PILIHAN)
-            $("#pilihanPengurus").append($newOpt);
-            $("#pilihanPengurus").trigger('contentChanged');
-        });
+        // $.each(pilihan, function(i, item) {
+        //     var $newOpt = $("<option>").attr("value", item.ID_PILIHAN).text(item.TB_PILIHAN)
+        //     $("#pilihanPengurus").append($newOpt);
+        //     $("#pilihanPengurus").trigger('contentChanged');
+        // });
         autoload();
     });
 

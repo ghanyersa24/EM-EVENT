@@ -39,6 +39,7 @@
 
 <script>
     var id_agenda = '<?= $idagenda; ?>';
+    var pilihan=""
     id_agenda = window.atob(id_agenda);
     const Toast = Swal.mixin({
         toast: true,
@@ -70,8 +71,8 @@
                 if (r.error == false) {
                     if (r.data.STATUS == 'SCREENING') {
                         r.data.PILIHAN.forEach(element => {
-                            $("#plotdiv").append('<option value="' + element.ID_PILIHAN + '" >' + element.TB_PILIHAN + '</option>');
-                            $("#plotdiv").trigger('contentChanged');
+                            $("#plotdiv, #pilihanPengurus").append('<option value="' + element.ID_PILIHAN + '" >' + element.TB_PILIHAN + '</option>');
+                            $("#plotdiv, #pilihanPengurus").trigger('contentChanged');
                         });
                         var foto = "https://siakad.ub.ac.id/siam/biodata.fotobynim.php?nim=" + nim + "&key=MzIxZm90b3V5ZTEyMysyMDE4LTA4LTIxIDIxOjA2OjAw";
                         $('#foto').attr('src', foto);
