@@ -25,7 +25,7 @@
         <div class="divider"></div>
         <br>
         <div class="center-align">
-            <form action="" id="presensiform">
+            <!-- <form action="" id="presensiform"> -->
                 <div class="row mt-3">
                     <div class="input-field col s8 m6 offset-s2 offset-m3">
                         <input id="add_nim_pengurus" type="number" class="validate">
@@ -35,7 +35,7 @@
                 <button type="submit" class="btn cyan waves-effect waves-light mb-3" onclick="search()">Submit
                     <i class="mdi-content-send right"></i>
                 </button>
-            </form>
+            <!-- </form> -->
         </div>
     </div>
 </div>
@@ -51,7 +51,7 @@
             <div class="input-field col s8 offset-s2">
                 <input id="nimPengurus" name="nimPengurus" type="text" class=" validate" placeholder="NIM">
                 <input id="nama_pengurus" name="nama_pengurus" type="text" class=" validate" placeholder="Nama Pengurus">
-                <select id="pilihanPengurus" class="materialSelect">
+                <select id="add_pilihanPengurus" class="materialSelect">
                     <option value="" disabled selected>Pilih Divisi</option>
                 </select>
                 <input id="telepon" name="telepon" type="text" class=" validate" placeholder="Telepon">
@@ -79,7 +79,7 @@
             <div class="input-field col s8 offset-s2">
                 <input id="nimPengurus" name="nimPengurus" type="text" class=" validate" placeholder="NIM">
                 <input id="nama_pengurus" name="nama_pengurus" type="text" class=" validate" placeholder="Nama Pengurus">
-                <select id="pilihanPengurus" class="materialSelect">
+                <select id="edit_pilihanPengurus" class="materialSelect">
                     <option value="" disabled selected>Pilih Divisi</option>
                 </select>
                 <input id="telepon" name="telepon" type="text" class=" validate" placeholder="Telepon">
@@ -89,7 +89,7 @@
         <div style="margin-top:50vh"></div>
         <div class="modal-footer center-align mt-3 mb-3">
             <a href="#" onclick="tutup()" class="waves-effect waves-red btn-flat modal-close" style="float:none">Tidak</a>
-            <a href="#!" type="submit" onclick="klik_ubah()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
+            <a href="#!" type="submit" onclick="klik_ubah_pengurus()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
             <div class="mt-3"></div>
         </div>
     </form>
@@ -110,7 +110,7 @@
     <br>
     <div class="modal-footer center-align mb-3">
         <a href="#" onclick="tutup()" class="waves-effect waves-red btn-flat modal-close" style="float:none">Tidak</a>
-        <a href="#!" onclick="klik_hapus()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
+        <a href="#!" onclick="klik_hapus_pengurus()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
     </div>
 
 </div>
@@ -121,26 +121,10 @@
     var nama = "";
 
     $(document).ready(function() {
-        // var pilihan = [{
-        //     "ID_PILIHAN": 68,
-        //     "TB_PILIHAN": "SDK"
-        // }, {
-        //     "ID_PILIHAN": 67,
-        //     "TB_PILIHAN": "PUSKOMINFO"
-        // }, {
-        //     "ID_PILIHAN": 70,
-        //     "TB_PILIHAN": "ADKEU"
-        // }];
-
-        // $.each(pilihan, function(i, item) {
-        //     var $newOpt = $("<option>").attr("value", item.ID_PILIHAN).text(item.TB_PILIHAN)
-        //     $("#pilihanPengurus").append($newOpt);
-        //     $("#pilihanPengurus").trigger('contentChanged');
-        // });
-        autoload();
+        load_pengurus();
     });
 
-    function autoload() {
+    function load_pengurus() {
         let harian = "";
         let inti = "";
         $.ajax({
@@ -230,7 +214,7 @@
         $('.modal').fadeOut('slow');
     }
 
-    function klik_hapus() {
+    function klik_hapus_pengurus() {
         $.ajax({
             url: "<?= base_url('pengurus/delete') ?>",
             type: 'POST',
@@ -245,7 +229,7 @@
                         type: 'success',
                         title: 'Pengurus berhasil dihapus'
                     })
-                    autoload();
+                    load_pengurus();
                 } else {
                     Toast.fire({
                         type: 'error',
@@ -258,7 +242,7 @@
 
     }
 
-    function klik_ubah() {
+    function klik_ubah_pengurus() {
         $.ajax({
             url: '<?php echo base_url('pengurus/update') ?>',
             type: 'POST',
@@ -267,7 +251,7 @@
                 nimlama: nimlama,
                 nim: $("#nimPengurus").val(),
                 nama: $("#nama_pengurus").val(),
-                id_pilihan: $("#pilihanPengurus").children("option:selected").val(),
+                id_pilihan: $("#edit_pilihanPengurus").children("option:selected").val(),
                 line: $("#linePengurus").val(),
                 telpon: $("#telepon").val()
             },
@@ -278,7 +262,7 @@
                         type: 'success',
                         title: 'Perubahan berhasil dilakukan'
                     })
-                    autoload();
+                    load_pengurus();
                     $('#modal2').fadeOut('slow');
                 } else {
                     Toast.fire({

@@ -118,9 +118,8 @@ class Pilihan extends CI_Controller
 
 	public function delete()
 	{
-		$idagenda = 20;
 		$id = r($this->input->POST('id_pilihan'));
-		$check = $this->Master->delete('TB_PILIHAN', array('ID_PILIHAN' => $id, 'ID_AGENDA' => $idagenda));
+		$check = $this->Master->delete('TB_PILIHAN', array('ID_PILIHAN' => $id));
 		if ($check) {
 			$data = array(
 				'status' => true,

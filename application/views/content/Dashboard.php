@@ -58,6 +58,7 @@
             </div>
         </form>
     </div>
+    
     <div id="konfirm" class="modal">
         <div class="modal-content center-align">
             <h5>Yakin menggunakan EM-Event ?</h5>

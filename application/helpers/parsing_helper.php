@@ -38,12 +38,13 @@ function divisi($data)
 	$res = array();
 	foreach ($data as $pilihan) {
 		$divisi="'".$pilihan['TB_PILIHAN']."'";
-		$hak="'".$pilihan['HAK']."'";
+		// $hak="'".$pilihan['HAK']."'";
 		$temp = array(
 			'ID_PILIHAN' => $pilihan['ID_PILIHAN'],
 			'TB_PILIHAN' => $pilihan['TB_PILIHAN'],
 			'HAK' => $pilihan['HAK'],
-			'ACTION'=> '<a href="#!" onclick="edit_divisi('.$pilihan['ID_PILIHAN'].','.$divisi.','.$hak.')" class="secondary-content tooltipped" data="" -="" position="right" tooltip="Ubah Pengurus"> <i class="mdi-content-create"> </i></a>'
+			'ACTION'=> '<a href="#!" onclick="edit_divisi('.$pilihan['ID_PILIHAN'].','.$divisi.')" class="secondary-content tooltipped" tooltip="Ubah Pengurus"> <i class="material-icons right" style="margin-right:2em">create</i></a>
+						<a href="#!" onclick="hapus_divisi('.$pilihan['ID_PILIHAN'].','.$divisi.')" class="secondary-content tooltipped" tooltip="Ubah Pengurus"> <i class="material-icons right">delete</i></a>'
 		);
 		array_push($res, $temp);
 	}
@@ -63,11 +64,11 @@ function agenda($data)
 					<span class="card-title activator grey-text text-darken-4">' . substr($print["TB_AGENDA"], 0, 17) . '<br> </span> 
 					<p>
 						<a href="' . base_url('presensi/index/' . base64_encode($print['ID_AGENDA'])) . '">Masuk</a> 
-						<a class="modal-trigger" href="#edit_agenda" onclick="edit_agenda(' . "'" . base64_encode($print['ID_AGENDA']) . "'" . ')">
-							<i class="material-icons right">create</i>
-						</a> 
 						<a class="modal-trigger" href="#hapus_agenda" data-target="hapus_agenda" onclick="hapus_agenda(' . "'" . base64_encode($print['ID_AGENDA']) . "', " . $print['NIM'].",'".$print['TB_AGENDA']."','".$print["FOTO"] ."'".')">
 							<i class="material-icons right">delete</i>
+						</a> 
+						<a class="modal-trigger" href="#edit_agenda" onclick="edit_agenda(' . "'" . base64_encode($print['ID_AGENDA']) . "'" . ')">
+							<i class="material-icons right">create</i>
 						</a> 
 					</p>
 					</div>

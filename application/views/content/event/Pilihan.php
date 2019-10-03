@@ -1,10 +1,10 @@
 <div class="col offset-m2 m8 s12">
-    <h5>PANITIA INTI</h5>
+    <h5>Divisi Inti</h5>
     <div class="divider"></div>
     <ul class="collection" style="border: none" id="pilihan_inti">
     </ul>
     <br>
-    <h5>DIVISI PILIHAN</h5>
+    <h5>Divisi Pilihan</h5>
     <div class="divider"></div>
     <ul class="collection" style="border: none" id="pilihan_divisi">
     </ul>
@@ -57,46 +57,23 @@
             <a href="#!" onclick="save_divisi()" class="modal-close modal-action waves-effect waves-green btn" style="float:none">Setuju</a>
         </div>
     </div>
+    <div id="hapus_divisi" class="modal" style="z-index: 1200; top:15vh;">
+        <div class="modal-content center-align">
+            <h5>Konfirmasi EM-Event</h5>
+            <div class="divider"></div>
+            <br>
+            <h5>Apakah kamu yakin ?</h5>
+            <br>
+            <h6>menghapus divisi <h5 class="red-text" id="text-divisi"></h5> dari rekrutmen <span class="red-text" id="text-agenda"><?= $agenda ?></span></h6>
+        </div>
+        <div class="modal-footer center-align mb-3">
+            <a href="#" class="waves-effect waves-red btn-flat" onclick="tutup()" style="float:none">Tidak</a>
+            <a href="#!" class="modal-close modal-action waves-effect waves-green btn" onclick="klik_hapus_divisi()" style="float:none">Setuju</a>
+        </div>
+    </div>
 </div>
 <script>
     var id_divisi = 0;
-    $(document).ready(function() {
-        load_pilihan();
-    });
-
-    function load_pilihan() {
-        let harian = "";
-        let inti = "";
-        $.ajax({
-            url: '<?php echo base_url('pilihan/get') ?>',
-            type: 'POST',
-            data: {
-                id_agenda: id_agenda
-            },
-            dataType: 'json',
-            success: (r) => {
-                if (r.error == false) {
-                    r.data.forEach(element => {
-                        if (element.HAK == 'BPI') {
-                            inti += '<li class="collection-item avatar"> <i class="mdi-action-account-circle circle green"></i> <span class="title">' + element.TB_PILIHAN + '<p> Pengurus Inti</p>' + element.ACTION + '</li>';
-                        } else {
-                            harian += '<li class="collection-item avatar"> <i class="mdi-action-account-circle circle green"></i> <span class="title">' + element.TB_PILIHAN + '<p> Divisi</p>' + element.ACTION + '</li>';
-                        }
-                    });
-                } else {
-                    Toast.fire({
-                        type: 'error',
-                        title: 'Calon tidak terdaftar'
-                    })
-                    $("#modal1").fadeOut();
-                }
-                $("#pilihan_inti").html("");
-                $("#pilihan_divisi").html("");
-                $("#pilihan_inti").append(inti);
-                $("#pilihan_divisi").append(harian);
-            }
-        })
-    }
 
     function tambah_divisi() {
         $.ajax({
@@ -114,7 +91,7 @@
                         type: 'success',
                         title: 'Divisi berhasil ditambahkan'
                     });
-                    load_pilihan()
+                    load_pilihan();
                 } else {
                     Toast.fire({
                         type: 'error',
@@ -126,10 +103,18 @@
 
     }
 
-    function edit_divisi(id, divisi, hak) {
+    function edit_divisi(id, divisi) {
         id_divisi = id;
         $("#edit_nama_divisi").val(divisi);
         $("#edit_divisi").fadeIn('slow');
+
+    }
+
+    function hapus_divisi(id, pilihan) {
+        id_divisi = id;
+        console.log(pilihan);
+        $("#text-divisi").html(pilihan);
+        $("#hapus_divisi").fadeIn('slow');
 
     }
 
@@ -139,7 +124,6 @@
 
     function save_divisi() {
         var hak = $("#edit_hak").children("option:selected").val();
-        console.log(hak);
         $.ajax({
             url: '<?php echo base_url('pilihan/update') ?>',
             type: 'POST',
@@ -153,17 +137,54 @@
                 if (!r.error) {
                     Toast.fire({
                         type: 'success',
-                        title: 'Divisi berhasil ditambahkan'
+                        title: 'Divisi berhasil diubah'
                     });
                     load_pilihan()
                 } else {
                     Toast.fire({
                         type: 'error',
-                        title: 'Divisi gagal ditambahkan'
+                        title: 'Divisi gagal diubah'
                     });
                 }
                 edit_close();
             }
+        })
+    }
+
+    function klik_hapus_divisi() {
+        $.ajax({
+            url: '<?php echo base_url('pilihan/delete') ?>',
+            type: 'POST',
+            data: {
+                id_pilihan: id_divisi
+            },
+            dataType: 'json',
+            success: (r) => {
+                if (!r.error) {
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Divisi berhasil dihapus'
+                    });
+                    load_pilihan()
+                    tutup();
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Divisi gagal dihapus'
+                    });
+                    tutup();
+                }
+            },
+            statusCode: {
+                500: function() {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Sudah ada yang memilih divisi ini, hanya bisa edit'
+                    });
+                    tutup();
+                }
+            }
+
         })
     }
 </script>

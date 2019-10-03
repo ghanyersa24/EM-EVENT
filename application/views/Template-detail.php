@@ -24,6 +24,7 @@
     <link href="<?= base_url('assets/js/') ?>plugins/fullcalendar/css/fullcalendar.min.css" type="text/css" rel="stylesheet" media="screen,projection">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -103,17 +104,7 @@
                                 <li><a href="<?= base_url("statistik/index/$idagenda") ?>" class="waves-effect waves-cyan"><i class="mdi-av-equalizer"></i> Data Statistik</a>
                                 </li>
                                 <li class="bold divisi"><a class="waves-effect waves-cyan"><i class="mdi-social-location-city"></i> Divisi</a>
-                                    <ul>
-                                        <?php
-                                        foreach ($divisi as $cetak) {
-                                            $idpilihan = base64_encode($cetak['ID_PILIHAN']);
-                                            ?>
-                                            <li><a href="<?= base_url("divisi/list/$idagenda/$idpilihan") ?>" class="waves-effect waves-cyan"><i class="mdi-image-nature"></i> <?= $cetak['TB_PILIHAN'] ?></a>
-                                            </li>
-                                        <?php
-                                        }
-                                        ?>
-                                    </ul>
+                                    <ul id="side_divisi"></ul>
                                 </li>
 
                                 <div class="divider"></div>
@@ -161,6 +152,77 @@
     <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/prism/prism.js"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins.js"></script>
+    <script>
+        let data_pilihan = "";
+        $(document).ready(function() {
+            load_pilihan();
+        });
+
+        function load_pilihan() {
+            $.ajax({
+                url: '<?php echo base_url('pilihan/get') ?>',
+                type: 'POST',
+                data: {
+                    id_agenda: id_agenda
+                },
+                dataType: 'json',
+                success: (r) => {
+                    if (!r.error) {
+                        data_pilihan = r.data;
+                        side_pilihan(data_pilihan);
+                        data_divisi(data_pilihan);
+                        pilihan_divisi(data_pilihan);
+                    } else {
+                        data_pilihan = "asdasd";
+                    }
+                }
+            })
+        }
+
+        function side_pilihan(data_pilihan) {
+            var cetak = "";
+            data_pilihan.forEach(element => {
+                if (element.HAK == 'BPH') {
+                    var pilihan = window.btoa(element.ID_PILIHAN);
+                    cetak += '<li ><a href="<?= base_url("divisi/list/$idagenda/") ?>' + pilihan + '" class="waves-effect waves-cyan"> <i class="mdi-image-nature"> </i>' + element.TB_PILIHAN + '</a> </li>'
+                }
+            });
+            $("#side_divisi").html("");
+            $("#side_divisi").append(cetak);
+        }
+
+        function data_divisi(data_pilihan) {
+            let harian = "";
+            let inti = "";
+
+            data_pilihan.forEach(element => {
+                if (element.HAK == 'BPI') {
+                    inti += '<li class="collection-item avatar"> <i class="mdi-action-account-circle circle green"></i> <span class="title">' + element.TB_PILIHAN + '<p> Inti</p>' + element.ACTION + '</li>';
+                } else {
+                    harian += '<li class="collection-item avatar"> <i class="mdi-action-account-circle circle green"></i> <span class="title">' + element.TB_PILIHAN + '<p> Divisi</p>' + element.ACTION + '</li>';
+                }
+            });
+
+            $("#pilihan_inti").html("");
+            $("#pilihan_divisi").html("");
+            $("#pilihan_inti").append(inti);
+            $("#pilihan_divisi").append(harian);
+        }
+
+        function pilihan_divisi(data_pilihan) {
+            var pilihan = $("#edit_pilihanPengurus, #add_pilihanPengurus");
+            pilihan.html("");
+            pilihan.on('contentChanged', function() {
+                $(this).material_select();
+            })
+            data_pilihan.forEach(item => {
+                var $newOpt = $("<option>").attr("value", item.ID_PILIHAN).text(item.TB_PILIHAN)
+                pilihan.append($newOpt);
+                pilihan.trigger('contentChanged');
+
+            });
+        }
+    </script>
 </body>
 
 </html>
