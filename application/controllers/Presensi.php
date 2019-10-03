@@ -27,7 +27,7 @@ class Presensi extends CI_Controller
 				'idagenda' => $idagenda,
 				'agenda' => $check[0]['TB_AGENDA'],
 				'title' => 'PRESENSI',
-				'divisi' => pilihan($this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))),
+				// 'divisi' => pilihan($this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))),
 				'listagenda' => $this->M_agenda->getAgenda($nim)
 			);
 			// var_dump($data);
