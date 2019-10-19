@@ -168,7 +168,7 @@
     var temp_foto = "";
     var nim = <?= $this->session->userdata('nim') ?>;
 
-    const Toast = Swal.mixin({
+    var Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
@@ -250,6 +250,12 @@
     }
 
     function klik_hapus() {
+        var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    })
         if (nim == temp_nim) {
             $.ajax({
                 type: "POST",
@@ -286,6 +292,12 @@
     }
 
     function klik_save() {
+        var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    })
         if (nim == temp_nim) {
             let tb_agenda = $("#edit_tb_agenda").val();
             let lembaga = $("#edit_lembaga").val();
@@ -341,6 +353,12 @@
         let buka = $("#buka").val();
         let tutup = $("#tutup").val();
         let pengumuman = $("#pengumuman").val();
+        var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    })
         $.ajax({
             type: "POST",
             url: "<?= base_url('agenda/set') ?>",
