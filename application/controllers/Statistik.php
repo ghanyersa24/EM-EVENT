@@ -6,13 +6,14 @@ class Statistik extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		// if (!$this->session->userdata('logged')) {
-		//     redirect('logout');
-		// }
+		if (!$this->session->userdata('logged')) {
+		    redirect('logout');
+		}
 		$this->load->helper('Parsing');
 		$this->load->model('Master');
 		$this->load->helper('text');
 		$this->load->model('M_agenda');
+		$this->load->model('M_jadwal');
 		$this->load->model('M_statistik');
 	}
 	public function index($idagenda)
@@ -24,9 +25,9 @@ class Statistik extends CI_Controller
 			$data = array(
 				'content' => 'content/event/Statistik',
 				'idagenda' => $idagenda,
-				'agenda' => $check[0]['TB_AGENDA'],
+				'agenda' => $check[0],
 				'title' => 'DATA STATISTIK',
-				// 'divisi' => pilihan($this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))),
+				'jadwal' => $this->M_jadwal->getJadwalAll($id),
 				'listagenda' => $this->M_agenda->getAgenda($nim)
 			);
 			$this->load->view('Template-detail', $data);
@@ -38,7 +39,8 @@ class Statistik extends CI_Controller
 	{
 		// $idagenda = r($this->input->post('id_agenda'));
 		$idagenda = 12;
-		$data = $this->M_statistik->get($idagenda);
+		// $data = $this->M_statistik->get($idagenda);
+		$data=array();
 		if (empty($data)) {
 			echo json_encode(
 				array(

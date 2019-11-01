@@ -58,6 +58,12 @@
 <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/chartjs/chart.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/') ?>plugins/chartjs/chart-script.js"></script>
 <script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    })
     var id_agenda = '<?= $idagenda; ?>';
     id_agenda = window.atob(id_agenda);
     $(document).ready(function() {

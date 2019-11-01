@@ -14,6 +14,7 @@ class Presensi extends CI_Controller
 		$this->load->Model('Master');
 		$this->load->Model('M_presensi');
 		$this->load->Model('M_agenda');
+		$this->load->model('M_jadwal');
 	}
 	public function index($idagenda)
 	{
@@ -25,9 +26,9 @@ class Presensi extends CI_Controller
 			$data = array(
 				'content' => 'content/event/Presensi',
 				'idagenda' => $idagenda,
-				'agenda' => $check[0]['TB_AGENDA'],
+				'agenda' => $check[0],
 				'title' => 'PRESENSI',
-				// 'divisi' => pilihan($this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))),
+				'jadwal' => $this->M_jadwal->getJadwalAll($id),
 				'listagenda' => $this->M_agenda->getAgenda($nim)
 			);
 			// var_dump($data);

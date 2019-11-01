@@ -31,7 +31,7 @@
         </div>
     </div>
     <br>
-    <div class="modal-footer center-align mt-3">
+    <div class="modal-footer mt-3">
         <a href="#" class="waves-effect waves-red btn-flat modal-close" style="float:none">Tidak</a>
         <a href="#!" class="modal-close modal-action waves-effect waves-green btn" onclick="klik_plotting()" style="float:none">Setuju</a>
     </div>

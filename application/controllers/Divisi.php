@@ -15,6 +15,7 @@ class Divisi extends CI_Controller
 		$this->load->model('Userbio');
 		$this->load->helper('text');
 		$this->load->helper('Parsing');
+		$this->load->model('M_jadwal');
 	}
 	public function list($idagenda, $idpilihan)
 	{
@@ -28,9 +29,9 @@ class Divisi extends CI_Controller
 				'content' => 'content/event/Divisi',
 				'idagenda' => $idagenda,
 				'idpilihan' => $idpilihan,
-				'agenda' => $check[0]['TB_AGENDA'],
+				'agenda' => $check[0],
 				'title' => $divisi[0]['TB_PILIHAN'],
-				// 'divisi' => pilihan($this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))),
+				'jadwal' => $this->M_jadwal->getJadwalAll($id),
 				'listagenda' => $this->M_agenda->getAgenda($nim)
 
 			);

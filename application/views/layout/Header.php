@@ -12,11 +12,13 @@
                 </ul>
                 <div class="header-search-wrapper hide-on-med-and-down">
                     <ul class="tabs tab-demo-active cyan">
-                        <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#beranda">Beranda</a>
+                        <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#beranda"><i class="mdi-action-home ml"></i></a>
                         </li>
-                        <li class="tab col s3"><a class="white-text waves-effect waves-light " href="#pilihan">Pilihan</a>
+                        <li class="tab col s3"><a class="white-text waves-effect waves-light " href="#pilihan"><i class="mdi-action-group-work ml"></i></a>
                         </li>
-                        <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#pengurus">Pengurus</a>
+                        <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#pengurus"><i class="mdi-social-group ml"></i></a>
+                        </li>
+                        <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#jadwal"><i class="mdi-action-today ml"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -46,12 +48,14 @@
             </div>
             <div class="hide-on-large-only">
                 <ul class="tabs tab-demo-active cyan">
-                    <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#beranda">Beranda</a>
-                    </li>
-                    <li class="tab col s3"><a class="white-text waves-effect waves-light " href="#pilihan">Pilihan</a>
-                    </li>
-                    <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#pengurus">Pengurus</a>
-                    </li>
+                <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#beranda"><i class="mdi-action-home"></i></a>
+                        </li>
+                        <li class="tab col s3"><a class="white-text waves-effect waves-light " href="#pilihan"><i class="mdi-action-group-work"></i></a>
+                        </li>
+                        <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#pengurus"><i class="mdi-social-group"></i></a>
+                        </li>
+                        <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#jadwal"><i class="mdi-action-today"></i></a>
+                        </li>
                 </ul>
             </div>
         </nav>

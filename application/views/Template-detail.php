@@ -102,7 +102,10 @@
                     <div id="beranda" class="row">
                         <div class="col m3">
                             <ul class="nav-2">
-                                <h5 class=" light-blue-text accent-4"><?= $agenda ?></h5>
+                                <h5 class=" light-blue-text accent-4"><?= $agenda['TB_AGENDA'] ?></h5>
+                                <script>
+                                    let agenda = '<?= $agenda['TB_AGENDA'] ?>';
+                                </script>
                                 <li><a href="<?= base_url("presensi/index/$idagenda") ?>" class="waves-effect waves-cyan"><i class="mdi-action-spellcheck"></i> Presensi</a>
                                 </li>
                                 <li><a href="<?= base_url("plotting/index/$idagenda") ?>" class="waves-effect waves-cyan"><i class="mdi-action-assignment-turned-in"></i> Plotingan</a>
@@ -137,6 +140,11 @@
                     <div id="pengurus" class="col s12">
                         <?php
                         include('content/event/Pengurus.php');
+                        ?>
+                    </div>
+                    <div id="jadwal" class="col s12">
+                        <?php
+                        include('content/event/Timeline.php');
                         ?>
                     </div>
                 </div>
@@ -228,6 +236,109 @@
 
             });
         }
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,basicWeek,basicDay'
+            },
+            defaultDate: new Date(),
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            selectable: true,
+            selectHelper: true,
+            select: function(start, end) {
+                var data = start._d;
+                var tanggal = data.getDate();
+                var bulan = data.getMonth();
+                var tahun = data.getFullYear();
+                var today = tanggal + ' ' + _bulan[bulan] + ' ' + tahun;
+                $("#add_tanggal_on").val(today);
+                $("#add_tanggal").val(tanggal + '-' + (bulan + 1) + '-' + tahun);
+                $("#add_jadwal").fadeIn();
+            },
+            eventRender: function(event, element) {
+                element.bind('dblclick', function() {
+                    var data = event.start._d;
+                    var tanggal = data.getDate();
+                    var bulan = data.getMonth();
+                    var tahun = data.getFullYear();
+                    var today = tanggal + ' ' + _bulan[bulan] + ' ' + tahun;
+                    $("#edit_tanggal_on").val(today);
+                    $("#edit_tanggal").val(tanggal + '-' + (bulan + 1) + '-' + tahun);
+                    id = event.id;
+                    var temp_title = event.title;
+                    temp_title = temp_title.split(" ");
+                    temp_title = temp_title[3];
+                    temp_title = temp_title.replace(/[()]/g, "");
+                    $('#edit_kuota').val(temp_title);
+                    $('#edit_jadwal').fadeIn();
+                });
+            },
+            eventDrop: function(event, delta, revertFunc) { // si changement de position
+                var temp_title = event.title;
+                temp_title = temp_title.split(" ");
+                temp_title = temp_title[3];
+                temp_title = temp_title.replace(/[()]/g, "");
+                event.title = temp_title;
+                edit(event);
+
+            },
+            eventResize: function(event, dayDelta, minuteDelta, revertFunc) { // si changement de longueur
+                alert("fitur ini belum bisa digunakan ya");
+                $('#calendar').fullCalendar('removeEvents');
+                load_jadwal();
+            },
+            events: [
+                <?php
+                $i = 1;
+                $j = 0;
+                $data_color = ["#9c27b0", "#e91e63", "#ff1744", "#aa00ff", "#01579b", "#2196f3", "#ff5722", "#4caf50", "#03a9f4", "#009688"];
+                foreach ($jadwal as $event) {
+                    ?> {
+                        id: '<?= $event['ID_C_JADWAL']; ?>',
+                        title: '<?= "Interview Day $i (" . $event['BATASAN'] . ')'; ?>',
+                        start: '<?= $event['JADWAL']; ?>',
+                        end: '<?= $event['JADWAL']; ?>',
+                        color: '<?= $data_color[$j] ?>'
+                    },
+                <?php
+                    $i++;
+                    $j++;
+                }
+                ?>
+                <?php
+                $start = explode(" ", $agenda['TGL_BUKA']);
+                $end = explode(" ", $agenda['TGL_TUTUP']);
+                ?> {
+                    title: 'PENDAFTARAN',
+                    start: '<?= $start[0] ?>',
+                    end: '<?= $end[0] ?>',
+                    color: '#88e8f9',
+                    editable: false
+                },
+                {
+                    title: 'PENGUMUMAN',
+                    start: '<?= $agenda['TGL_PENGUMUMAN'] ?>',
+                    color: '#606aec',
+                    editable: false
+                },
+            ]
+        });
+        var arr_jadwal = [{
+                title: 'PENDAFTARAN',
+                start: '<?= $start[0] ?>',
+                end: '<?= $end[0] ?>',
+                color: '#88e8f9',
+                editable: false
+            },
+            {
+                title: 'PENGUMUMAN',
+                start: '<?= $agenda['TGL_PENGUMUMAN'] ?>',
+                color: '#606aec',
+                editable: false
+            },
+        ];
     </script>
 </body>
 

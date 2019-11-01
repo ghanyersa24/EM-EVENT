@@ -34,6 +34,7 @@ class M_jadwal extends CI_Model {
 		$query = $this->db->select('*')
 							->from('TB_JADWAL')
 							->where($where)
+							->order_by('JADWAL','ASC')
 							->get()
 							->result_array();
 		return $query;

@@ -14,6 +14,7 @@ class Plotting extends CI_Controller
 		$this->load->helper('text');
 		$this->load->Model('Master');
 		$this->load->Model('M_plotting');
+		$this->load->model('M_jadwal');
 		$this->load->Model('M_agenda');
 	}
 	public function index($idagenda)
@@ -25,9 +26,9 @@ class Plotting extends CI_Controller
 			$data = array(
 				'content' => 'content/event/Plotting',
 				'idagenda' => $idagenda,
-				'agenda' => $check[0]['TB_AGENDA'],
+				'agenda' => $check[0],
 				'title' => 'PLOTTING',
-				// 'divisi' => pilihan($this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))),
+				'jadwal' => $this->M_jadwal->getJadwalAll($id),
 				'listagenda' => $this->M_agenda->getAgenda($nim)
 			);
 			$this->load->view('Template-detail', $data);
@@ -130,9 +131,9 @@ class Plotting extends CI_Controller
 			$data = array(
 				'content' => 'content/event/Dropout',
 				'idagenda' => $idagenda,
-				'agenda' => $check[0]['TB_AGENDA'],
+				'agenda' => $check[0],
 				'title' => 'DROP OUT',
-				'divisi' => pilihan($this->Master->get('TB_PILIHAN', array('ID_AGENDA' => $id))),
+				'jadwal' => $this->M_jadwal->getJadwalAll($id),
 				'listagenda' => $this->M_agenda->getAgenda($nim)
 			);
 			$this->load->view('Template-detail', $data);

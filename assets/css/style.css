@@ -32,6 +32,10 @@
     padding-top: 3vh;
 }
 
+.ml {
+    margin-left: 15px;
+}
+
 body {
     background-color: #f9f9f9;
 }
